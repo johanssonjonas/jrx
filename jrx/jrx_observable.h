@@ -22,7 +22,6 @@ public:
 	template<class _Ty> using ptr_t = std::shared_ptr<_Ty>;
     template<class _Ty1, class _Ty2 = _Ty1> using ptr_observable_t = ptr_t<Observable<_Ty1, _Ty2>>;
     typedef func_t<void(void)> value_factory_t;
-    typedef func_t<void(_ChildrenType &)> subscriber_t;
     typedef func_t<_ChildrenType(_SenderType &)> value_retriever_t;
 
     // creating observables
@@ -49,14 +48,14 @@ public:
         -> void;
     
     // subscription
-    auto subscribe(subscriber_t) -> void;
+    auto subscribe(func_t<void(_ChildrenType &)>) -> void;
     
 protected:
     
     Observable(value_retriever_t converter);
     Observable();
     Observable(value_factory_t _pOnSubscribe);
-	container_t<subscriber_t> m_vSubscribersOnNext;
+	container_t<func_t<void(_ChildrenType &)>> m_vSubscribersOnNext;
     container_t<ptr_t<Subscriber<_ChildrenType>>> m_vChildren;
 
 private:

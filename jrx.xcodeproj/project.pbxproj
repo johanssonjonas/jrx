@@ -13,6 +13,7 @@
 		6E4BBCF81F82BA7E00E9F346 /* jrx_operator_map.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BBCF61F82BA7E00E9F346 /* jrx_operator_map.hpp */; };
 		6E4F47F91F8C11F7007A7265 /* jrx_subscriber.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E4F47F71F8C11F7007A7265 /* jrx_subscriber.hpp */; };
 		6E6ACDA81F8185B8009B1DE4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E6ACDA71F8185B8009B1DE4 /* main.cpp */; };
+		6EEDE1BC1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6EEDE1BA1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		6E4F47F81F8C11F7007A7265 /* jrx_subscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_subscriber.h; sourceTree = "<group>"; };
 		6E6ACDA41F8185B8009B1DE4 /* jrx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jrx; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E6ACDA71F8185B8009B1DE4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6EEDE1BA1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_operator_combine_latest.hpp; sourceTree = "<group>"; };
+		6EEDE1BB1F97DC2600FBD05E /* jrx_operator_combine_latest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_operator_combine_latest.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				6E4BBCF61F82BA7E00E9F346 /* jrx_operator_map.hpp */,
 				6E4F47F71F8C11F7007A7265 /* jrx_subscriber.hpp */,
 				6E4F47F81F8C11F7007A7265 /* jrx_subscriber.h */,
+				6EEDE1BA1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp */,
+				6EEDE1BB1F97DC2600FBD05E /* jrx_operator_combine_latest.h */,
 			);
 			path = jrx;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				6E4BBCF81F82BA7E00E9F346 /* jrx_operator_map.hpp in Sources */,
 				6E4BBCEF1F82B82F00E9F346 /* jrx.cpp in Sources */,
 				6E6ACDA81F8185B8009B1DE4 /* main.cpp in Sources */,
+				6EEDE1BC1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
