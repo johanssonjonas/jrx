@@ -37,20 +37,10 @@ public:
     template <class _NewChildType>
         auto map(std::function<_NewChildType(_SenderType &)> _pFilter)
         	-> ptr_observable_t<_SenderType, _NewChildType>;
-    
-    // combining operators
-//    template<class Result, typename... Arguments>
-//        static auto combineLatest(ptr_observable_t<Arguments> ... params, Arguments Result:: * ... params2) -> ptr_observable_t<Result>;
-
-//        template<class Result, typename... Arguments>
-//        static auto combineLatest(std::pair<std::shared_ptr<Observable<Arguments, Arguments>>, std::function<void(Arguments, Result)>> ...params) -> ptr_observable_t<Result>;
-
-//    template<class Result, typename... Arguments>
-//        static auto combineLatest(std::vector<UntypedSubscriber>, std::vector<std::function<void(Arguments ..., Result)>>> idfj)  -> ptr_observable_t<Result>;
 
     // posting
     virtual auto onNext(_SenderType &value)
-        -> void;
+        -> void override;
     virtual auto onCompleted()
         -> void;
     virtual auto onError()
@@ -66,6 +56,8 @@ protected:
     Observable(value_factory_t _pOnSubscribe);
 	container_t<func_t<void(_ChildrenType &)>> m_vSubscribersOnNext;
     container_t<ptr_t<TypedSubscriber<_ChildrenType>>> m_vChildren;
+
+    auto start() -> void override;
 
 private:
     std::function<_ChildrenType(_SenderType &)> m_pConverted;
