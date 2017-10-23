@@ -41,8 +41,26 @@ auto Observable<_SenderType, _ChildrenType>::forEach(std::vector<_ChildrenType> 
     return observable;
 }
 
+//template <class _SenderType, class _ChildrenType>
+//template<class Result, typename... Arguments>
+//auto jrx::core::Observable<_SenderType, _ChildrenType>::combineLatest(std::shared_ptr<Observable<Arguments>> ... params, Arguments Result:: * ... params2) -> std::shared_ptr<Observable<Result>>
+//{
+//    Result t;
+//
+//    return nullptr;
+//}
 
-
+//template <class _SenderType, class _ChildrenType>
+//template<class Result, typename... Arguments>
+//auto jrx::core::Observable<_SenderType, _ChildrenType>::combineLatest(std::pair<std::shared_ptr<Observable<Arguments, Arguments>>, std::function<void(Arguments, Result)>> ...params) -> ptr_observable_t<Result> {
+//
+//    std::vector<std::pair<std::shared_ptr<UntypedSubscriber>, std::function<void(Arguments, Result)>>> vec = {params...};
+//
+//
+//    return Observable<Result>::just(Result {
+//
+//    });
+//}
 
 
 template <class _SenderType, class _ChildrenType> Observable<_SenderType, _ChildrenType>::Observable(value_retriever_t converter) {
@@ -79,7 +97,7 @@ auto Observable<_SenderType, _ChildrenType>::filter(std::function<bool(_Children
         }
     };
     
-    auto convertedPtr = std::static_pointer_cast<::Subscriber<_SenderType>>(ptr);
+    auto convertedPtr = std::static_pointer_cast<::TypedSubscriber<_SenderType>>(ptr);
     m_vChildren.push_back(convertedPtr);
     
     m_vChildren.back()->m_pOnSubscribeRoot = this->m_pOnSubscribeRoot;

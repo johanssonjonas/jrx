@@ -9,8 +9,10 @@
 #ifndef jrx_subscriber_hpp
 #define jrx_subscriber_hpp
 
+
+
 template <class _Ty>
-class jrx::core::Subscriber {
+class jrx::core::TypedSubscriber : public jrx::core::UntypedSubscriber {
 public:
 
     virtual auto onNext(_Ty &value) -> void = 0;

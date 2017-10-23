@@ -18,8 +18,13 @@ namespace jrx {
 
     namespace core {
 
-        template <class _Ty> class Subscriber;
+        class UntypedSubscriber;
+        template <class _Ty> class TypedSubscriber;
         template <class _SenderType, class _ChildrenType> class Observable;
+    }
+    
+    namespace operators {
+        
     }
 }
 
@@ -27,10 +32,12 @@ using namespace jrx;
 using namespace jrx::core;
 
 
-#include "jrx_subscriber.h"
+#include "jrx_untyped_subscriber.h"
+#include "jrx_typed_subscriber.h"
 #include "jrx_observable.h"
 #include "jrx_operator_filter.h"
 #include "jrx_operator_map.h"
+#include "jrx_operator_combine_latest.h"
 
 #include "jrx_observable.hpp"
 #include "jrx_operator_filter.hpp"
