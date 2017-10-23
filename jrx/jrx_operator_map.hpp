@@ -10,7 +10,7 @@
 
 
 template <class _SenderType, class _NewChildType>
-Map<_SenderType, _NewChildType>::Map(std::function<_NewChildType(_SenderType &)> _pPreducate)
+jrx::operators::Map<_SenderType, _NewChildType>::Map(std::function<_NewChildType(_SenderType &)> _pPreducate)
 : Observable<_SenderType, _NewChildType>([this](_SenderType &value) -> _NewChildType {
     auto tmp = m_pPreducate(value);
     return tmp;
@@ -19,7 +19,7 @@ Map<_SenderType, _NewChildType>::Map(std::function<_NewChildType(_SenderType &)>
 }
 
 template <class _SenderType, class _NewChildType>
-auto Map<_SenderType, _NewChildType>::onNext(_SenderType &value) -> void {
+auto jrx::operators::Map<_SenderType, _NewChildType>::onNext(_SenderType &value) -> void {
     
     auto converted = m_pPreducate(value);
     

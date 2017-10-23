@@ -30,50 +30,23 @@ int main(int argc, const char * argv[]) {
 //            }
 //        }
 //    };
+
 //
-//    auto ptr2 = std::static_pointer_cast<BaseObservable<int>>(ptr);
+//    struct CombiningMap {
+//        float x;
+//        std::string y;
+//    };
+//
+//    auto observable1 = Observable<float>::just(5.0f);
+//    auto observable2 = Observable<std::string>::just("hello");
+//
+//    CombineLatest<CombiningMap> combined {
+//        {
+//            PartialValueObserver<float, CombiningMap> { observable1, &CombiningMap::x },
+//            PartialValueObserver<std::string, CombiningMap> { observable2, &CombiningMap::y }
+//        }
+//    };
 
-//    tmp->m_vChildren.push_back(ptr2);
-    
-    struct CombiningMap {
-        float x;
-        std::string y;
-    };
-
-    auto observable1 = Observable<float>::just(5.0f);
-    auto observable2 = Observable<std::string>::just("hello");
-
-    CombineLatest<CombiningMap> combined {
-        {
-            PartialValueObserver<float, CombiningMap> { observable1, &CombiningMap::x },
-            PartialValueObserver<std::string, CombiningMap> { observable2, &CombiningMap::y }
-        }
-    };
-
-
-
-//    auto values = Observable<CombiningMap>::combineLatest<CombiningMap, float, std::string>(observable1,
-//                                                                                   observable2,
-//                                                                                   &CombiningMap::x,
-//                                                                                   &CombiningMap::y);
-
-
-    auto untyped1 = observable1->map<float>([](float value){
-        return value;
-    });
-
-    auto untyped2 = untyped1->untyped(untyped1);
-
-
-
-
-//    auto values = Observable<CombiningMap>::combineLatest<CombiningMap, float, std::string>(
-//        std::make_pair(observable1, [](float value, CombiningMap obj) { obj.x = value; }),
-//        std::make_pair(observable2, [](std::string value, CombiningMap obj) { obj.y = value; })
-//    );
-
-    CombiningMap helpisdf;
-    
     
     /*
     CombineLatest<CombiningMap, float, std::string> tmp {
@@ -87,6 +60,10 @@ int main(int argc, const char * argv[]) {
     
     Observable<int>::forEach({5, 2, 1, 3})
         ->filter([](int &value){ return value > 2; })
+    	->on([](int &value) {
+			// print here
+            std::cout << "here: " << value << "\n";
+    	})
         ->map<std::string>([](int &value) {
             return std::to_string(value);
         })

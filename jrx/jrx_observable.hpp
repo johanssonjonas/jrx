@@ -6,7 +6,7 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-#include "jrx.h"
+
 
 
 
@@ -103,6 +103,19 @@ auto Observable<_SenderType, _ChildrenType>::map(std::function<_NewChildType(_Se
     return ptr;
 }
 
+template <class _SenderType, class _ChildrenType>
+auto Observable<_SenderType, _ChildrenType>::on(std::function<void(_SenderType &)> _pFilter) -> std::shared_ptr<Observable<_SenderType, _ChildrenType>> {
+
+    std::shared_ptr<Observable<_SenderType, _ChildrenType>> ptr {
+        new Do<_SenderType, _ChildrenType>{
+            _pFilter
+        }
+    };
+
+    m_vChildren.push_back(ptr);
+    ptr->m_pOnSubscribeRoot = this->m_pOnSubscribeRoot;
+    return ptr;
+}
 
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::onNext(_SenderType &value) -> void {

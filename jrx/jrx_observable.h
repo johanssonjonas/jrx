@@ -37,6 +37,8 @@ public:
     template <class _NewChildType>
         auto map(std::function<_NewChildType(_SenderType &)> _pFilter)
         	-> ptr_observable_t<_SenderType, _NewChildType>;
+    auto on(std::function<void(_SenderType &)> _pFilter)
+    -> ptr_observable_t<_SenderType, _ChildrenType>;
 
     // posting
     virtual auto onNext(_SenderType &value)

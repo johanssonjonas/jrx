@@ -17,38 +17,6 @@
             endingLineNumber = "52"
             landmarkName = "Observable()"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Observable&lt;int, int&gt;::Observable()"
-                  moduleName = "JoRX"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jonasjohansson/Desktop/JoRX/JoRX/jorx_observable.hpp"
-                  timestampString = "528840789.433461"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "476">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Observable&lt;int, int&gt;::Observable()::&apos;lambda&apos;(int&amp;)::operator()(int&amp;) const"
-                  moduleName = "JoRX"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jonasjohansson/Desktop/JoRX/JoRX/jorx_observable.hpp"
-                  timestampString = "528840789.435387"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
