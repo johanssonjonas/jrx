@@ -41,6 +41,26 @@ auto Observable<_SenderType, _ChildrenType>::forEach(std::vector<_ChildrenType> 
     return observable;
 }
 
+
+template <class _SenderType, class _ChildrenType>
+auto Observable<_SenderType, _ChildrenType>::combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> blargs) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>> {
+    
+    std::vector<std::shared_ptr<PartialValueHolder<_SenderType>>> blargsPtrs;
+    
+    for (auto blarg : blargs)
+    {
+        blargsPtrs.push_back(blarg.ptr);
+    }
+    
+    std::shared_ptr<CombineLatest<_SenderType>> observable = std::shared_ptr<CombineLatest<_SenderType>>{
+        new CombineLatest<_SenderType>(blargsPtrs)
+    };
+
+    return observable;
+}
+
+
+
 template <class _SenderType, class _ChildrenType> Observable<_SenderType, _ChildrenType>::Observable(value_retriever_t converter) {
     this->m_pOnSubscribeRoot = nullptr;
     this->m_pConverted = converter;
@@ -67,7 +87,7 @@ auto Observable<_SenderType, _ChildrenType>::subscribe(std::function<void(_Child
 }
 
 template <class _SenderType, class _ChildrenType>
-auto Observable<_SenderType, _ChildrenType>::start() -> void {
+auto Observable<_SenderType, _ChildrenType>::onStart() -> void {
     this->m_pOnSubscribeRoot();
 }
 
@@ -126,6 +146,8 @@ auto Observable<_SenderType, _ChildrenType>::onNext(_SenderType &value) -> void 
     for (int i = 0; i < m_vSubscribersOnNext.size(); i++) {
         m_vSubscribersOnNext[i](val);
     }
+
+    this->onValuePosted();
 }
 
 template <class _SenderType, class _ChildrenType>

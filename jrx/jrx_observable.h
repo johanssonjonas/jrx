@@ -30,6 +30,10 @@ public:
         static auto untyped(std::shared_ptr<Observable<_SenderType>> sender) -> std::shared_ptr<UntypedSubscriber> {
             return std::static_pointer_cast<UntypedSubscriber>(sender);
         }
+
+    // merging
+	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> blargs) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>>;
+
     
     // operators
     auto filter(std::function<bool(_ChildrenType &)> _pPreducate)
@@ -59,7 +63,7 @@ protected:
 	container_t<func_t<void(_ChildrenType &)>> m_vSubscribersOnNext;
     container_t<ptr_t<TypedSubscriber<_ChildrenType>>> m_vChildren;
 
-    auto start() -> void override;
+    auto onStart() -> void override;
 
 private:
     std::function<_ChildrenType(_SenderType &)> m_pConverted;

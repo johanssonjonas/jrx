@@ -22,13 +22,7 @@ template <class _SenderType, class _NewChildType>
 auto jrx::operators::Do<_SenderType, _NewChildType>::onNext(_SenderType &value) -> void {
 
     m_pPreducate(value);
-
-    for (int i = 0; i < this->m_vChildren.size(); i++) {
-        this->m_vChildren[i]->onNext(value);
-    }
-    for (int i = 0; i < this->m_vSubscribersOnNext.size(); i++) {
-        this->m_vSubscribersOnNext[i](value);
-    }
+    Observable<_SenderType, _NewChildType>::onNext(value);
 }
 
 

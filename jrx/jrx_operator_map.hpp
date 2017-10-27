@@ -20,6 +20,8 @@ jrx::operators::Map<_SenderType, _NewChildType>::Map(std::function<_NewChildType
 
 template <class _SenderType, class _NewChildType>
 auto jrx::operators::Map<_SenderType, _NewChildType>::onNext(_SenderType &value) -> void {
+
+    Observable<_SenderType, _NewChildType>::onNext(value);
     
     auto converted = m_pPreducate(value);
     
