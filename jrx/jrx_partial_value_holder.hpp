@@ -7,3 +7,7 @@
 //
 
 
+template <class _Ty>
+PartialValueHolder<_Ty>::PartialValueHolder() {
+    m_pSharedObject = nullptr;
+}

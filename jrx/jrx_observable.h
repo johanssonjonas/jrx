@@ -27,10 +27,6 @@ public:
     static auto forEach(std::vector<_ChildrenType> &&value)
         -> ptr_observable_t<_SenderType>;
 
-        static auto untyped(std::shared_ptr<Observable<_SenderType>> sender) -> std::shared_ptr<UntypedSubscriber> {
-            return std::static_pointer_cast<UntypedSubscriber>(sender);
-        }
-
     // merging
 	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> blargs) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>>;
 

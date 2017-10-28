@@ -13,12 +13,10 @@
 template <class _Ty>
 class PartialValueHolder : public UntypedSubscriber {
 public:
-
+	
+    PartialValueHolder();
+    
     _Ty *m_pSharedObject;
-
-    PartialValueHolder() {
-        m_pSharedObject = nullptr;
-    }
 };
 
 

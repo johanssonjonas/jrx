@@ -15,13 +15,7 @@ class jrx::utils::factories::PartialValueObserverPtrFactory
 public:
     
     template <class Combined, class Y>
-    PartialValueObserverPtrFactory(std::shared_ptr<Observable<Y>> _pObservable, Y Combined::* valueSetter)
-    {
-        this->ptr = std::shared_ptr<PartialValueHolder<Combined>>{
-            new PartialValueObserver<Y, Combined> { _pObservable, valueSetter }
-        };
-    }
-    
+	PartialValueObserverPtrFactory(std::shared_ptr<Observable<Y>> _pObservable, Y Combined::* valueSetter);
     std::shared_ptr<PartialValueHolder<Result>> ptr;
 };
 

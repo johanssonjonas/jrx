@@ -18,33 +18,12 @@
 template<class Result>
 class jrx::operators::CombineLatest : public jrx::core::Observable<Result, Result> {
 public:
-
-    CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> blargs) :
-    	Observable<Result, Result>([this]{
-            for (auto &blargh : m_vBlarghs) {
-                blargh->start();
-            }
-    	}),
-    	m_vBlarghs(blargs)
-    {
-        for (auto &blarg : m_vBlarghs) {
-            blarg->PartialValueHolder<Result>::m_pSharedObject = &m_Object;
-            blarg->onNextValue([this](){
-                this->onNext(m_Object);
-            });
-        }
-    }
-
-//    auto onNext(Result &value) -> void override {
-//
-//    }
-
-protected:
-
+	
+    CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders);
+    
 private:
-
     Result m_Object;
-    std::vector<std::shared_ptr<PartialValueHolder<Result>>> m_vBlarghs;
+    std::vector<std::shared_ptr<PartialValueHolder<Result>>> m_vValueObserverHolders;
 };
 
 #endif /* jrx_operator_combine_latest_hpp */

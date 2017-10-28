@@ -17,7 +17,6 @@
 namespace jrx {
 
     namespace core {
-
         class UntypedSubscriber;
         template <class _Ty> class TypedSubscriber;
         template <class _SenderType, class _ChildrenType> class Observable;
@@ -55,6 +54,9 @@ using namespace jrx::utils::factories;
 #include "jrx_partial_value_observer_ptr_factory.h"
 #include "jrx_operator_combine_latest.h"
 
+#include "jrx_partial_value_observer.hpp"
+#include "jrx_operator_combine_latest.hpp"
+#include "jrx_partial_value_holder.hpp"
 #include "jrx_observable.hpp"
 #include "jrx_operator_filter.hpp"
 #include "jrx_operator_map.hpp"
