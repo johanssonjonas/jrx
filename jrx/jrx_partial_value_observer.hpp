@@ -6,8 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
-
 template <class _Ty, class _Ty2>
 PartialValueObserver<_Ty, _Ty2>::PartialValueObserver(std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> obs, _Ty _Ty2::* valueSetter) {
     m_pValueSetter = valueSetter;

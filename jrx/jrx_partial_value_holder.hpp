@@ -6,7 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
 template <class _Ty>
 PartialValueHolder<_Ty>::PartialValueHolder() {
     m_pSharedObject = nullptr;

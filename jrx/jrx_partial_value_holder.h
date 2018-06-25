@@ -9,7 +9,6 @@
 #ifndef jrx_partial_value_holder_hpp
 #define jrx_partial_value_holder_hpp
 
-
 template <class _Ty>
 class PartialValueHolder : public UntypedSubscriber {
 public:
@@ -18,6 +17,5 @@ public:
     
     _Ty *m_pSharedObject;
 };
-
 
 #endif /* jrx_partial_value_holder_hpp */

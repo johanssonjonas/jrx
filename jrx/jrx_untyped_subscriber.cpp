@@ -6,10 +6,7 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
 #include "jrx.h"
-
-
 
 auto UntypedSubscriber::start() -> void {
     onStart();

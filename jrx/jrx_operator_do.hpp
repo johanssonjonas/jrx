@@ -6,9 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
-
-
 template <class _SenderType, class _NewChildType>
 jrx::operators::Do<_SenderType, _NewChildType>::Do(std::function<void(_SenderType &)> _pPreducate)
 : Observable<_SenderType, _NewChildType>([this](_SenderType &value) -> _SenderType {

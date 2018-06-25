@@ -6,8 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
-
 template <class Result>
 template <class Combined, class Y>
 PartialValueObserverPtrFactory<Result>::PartialValueObserverPtrFactory(std::shared_ptr<Observable<Y>> _pObservable, Y Combined::* valueSetter)
