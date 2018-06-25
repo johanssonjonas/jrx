@@ -6,8 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
-
 template <class _Ty, class _Ty2>
 Filter<_Ty, _Ty2>::Filter(std::function<bool(_Ty &)> _pPreducate) {
     m_pPreducate = _pPreducate;

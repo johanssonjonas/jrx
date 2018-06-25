@@ -6,11 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
-
-
-
-
 template<class Result>
 jrx::operators::CombineLatest<Result>::CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders) :
 Observable<Result, Result>([this]{

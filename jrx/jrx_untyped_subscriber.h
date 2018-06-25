@@ -9,7 +9,6 @@
 #ifndef jrx_untyped_subscriber_h
 #define jrx_untyped_subscriber_h
 
-
 class jrx::core::UntypedSubscriber {
 public:
 

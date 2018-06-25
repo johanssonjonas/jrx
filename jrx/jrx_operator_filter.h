@@ -9,7 +9,6 @@
 #ifndef jorx_operator_where_hpp
 #define jorx_operator_where_hpp
 
-
 template <class _Ty, class _Ty2 = _Ty>
 class Filter : public jrx::core::Observable<_Ty, _Ty2> {
 public:

@@ -6,11 +6,6 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-
-
-
-
-
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::just(_ChildrenType &&value) -> std::shared_ptr<Observable<_SenderType>> {
     
@@ -41,7 +36,6 @@ auto Observable<_SenderType, _ChildrenType>::forEach(std::vector<_ChildrenType> 
     return observable;
 }
 
-
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> blargs) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>> {
     
@@ -58,8 +52,6 @@ auto Observable<_SenderType, _ChildrenType>::combineLatest(std::vector<PartialVa
 
     return observable;
 }
-
-
 
 template <class _SenderType, class _ChildrenType> Observable<_SenderType, _ChildrenType>::Observable(value_retriever_t converter) {
     this->m_pOnSubscribeRoot = nullptr;
