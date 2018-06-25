@@ -9,8 +9,6 @@
 #ifndef jrx_partial_value_observer_hpp
 #define jrx_partial_value_observer_hpp
 
-
-
 template <class _Ty, class _Ty2>
 class PartialValueObserver: public PartialValueHolder<_Ty2> {
 public:

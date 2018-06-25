@@ -5,7 +5,7 @@ JRX: A Reactive Extensions Library for C++17
 
 Rx is expressed through the `Observable<Element>` class.
 
-This is **one** Rx implementation in C++, targeting modern versions of the language, with an object oriented approach. 
+This is **a** Rx implementation in C++, targeting modern versions of the language, with an object oriented approach. 
 
 The port includes many concepts and terminologies as other implementations, but share no code nor is it connected in any other way. 
 
@@ -36,11 +36,11 @@ The port includes many concepts and terminologies as other implementations, but 
 
 ###### ... basic ussage
 
-* with the example app. [Running Example App](Documentation/ExampleApp.md)
-* with operators in playgrounds. [Playgrounds](Documentation/Playgrounds.md)
-* [Online documentation](./docs/html/index.html)
+* [example source code](examples/example_1.cpp)
 
 ###### ... extending
+
+* Have a look at the [map operator](jrx/jrx_operator_map.h) operator as it show a simple operator (few lines of code) which integrates nicely with the concept. 
 
 ## Requirements
 
