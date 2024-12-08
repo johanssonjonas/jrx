@@ -11,7 +11,7 @@ jrx::operators::Do<_SenderType, _NewChildType>::Do(std::function<void(_SenderTyp
 : Observable<_SenderType, _NewChildType>([this](_SenderType &value) -> _SenderType {
     m_pPreducate(value);
     return value;
-}){
+}) {
     m_pPreducate = _pPreducate;
 }
 

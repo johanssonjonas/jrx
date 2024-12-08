@@ -20,6 +20,7 @@ namespace jrx {
         class UntypedSubscriber;
         template <class _Ty> class TypedSubscriber;
         template <class _SenderType, class _ChildrenType> class Observable;
+        template <class _SenderType, class _ChildrenType> class BehaviorRelay;
     }
     
     namespace operators {
@@ -48,6 +49,7 @@ using namespace jrx::utils::factories;
 #include "jrx_partial_value_observer.h"
 
 #include "jrx_observable.h"
+#include "jrx_behavior_relay.h"
 #include "jrx_operator_filter.h"
 #include "jrx_operator_map.h"
 #include "jrx_operator_do.h"
@@ -58,6 +60,7 @@ using namespace jrx::utils::factories;
 #include "jrx_operator_combine_latest.hpp"
 #include "jrx_partial_value_holder.hpp"
 #include "jrx_observable.hpp"
+#include "jrx_behavior_relay.hpp"
 #include "jrx_operator_filter.hpp"
 #include "jrx_operator_map.hpp"
 #include "jrx_operator_do.hpp"

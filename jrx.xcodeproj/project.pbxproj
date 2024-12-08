@@ -3,39 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 70;
 	objects = {
-
-/* Begin PBXBuildFile section */
-		6E2AE4AB2014B18300EC89AC /* jrx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BBCED1F82B82F00E9F346 /* jrx.cpp */; };
-		6E2AE4AC2014B18700EC89AC /* jrx_untyped_subscriber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E8368751F9E57490067E96D /* jrx_untyped_subscriber.cpp */; };
-/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6E2AE4A72014B17800EC89AC /* libjrx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjrx.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E4BBCED1F82B82F00E9F346 /* jrx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jrx.cpp; sourceTree = "<group>"; };
-		6E4BBCEE1F82B82F00E9F346 /* jrx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx.h; sourceTree = "<group>"; };
-		6E4BBCF01F82B85600E9F346 /* jrx_observable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_observable.hpp; sourceTree = "<group>"; };
-		6E4BBCF11F82B85600E9F346 /* jrx_observable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_observable.h; sourceTree = "<group>"; };
-		6E4BBCF31F82B8E500E9F346 /* jrx_operator_filter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_operator_filter.hpp; sourceTree = "<group>"; };
-		6E4BBCF41F82B8E500E9F346 /* jrx_operator_filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_operator_filter.h; sourceTree = "<group>"; };
-		6E4BBCF61F82BA7E00E9F346 /* jrx_operator_map.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_operator_map.hpp; sourceTree = "<group>"; };
-		6E4BBCF71F82BA7E00E9F346 /* jrx_operator_map.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_operator_map.h; sourceTree = "<group>"; };
-		6E4F47F71F8C11F7007A7265 /* jrx_typed_subscriber.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_typed_subscriber.hpp; sourceTree = "<group>"; };
-		6E4F47F81F8C11F7007A7265 /* jrx_typed_subscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_typed_subscriber.h; sourceTree = "<group>"; };
-		6E56D04D1FA3C473009BB9D8 /* jrx_partial_value_observer_ptr_factory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_partial_value_observer_ptr_factory.hpp; sourceTree = "<group>"; };
-		6E56D04E1FA3C473009BB9D8 /* jrx_partial_value_observer_ptr_factory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_partial_value_observer_ptr_factory.h; sourceTree = "<group>"; };
-		6E8368751F9E57490067E96D /* jrx_untyped_subscriber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jrx_untyped_subscriber.cpp; sourceTree = "<group>"; };
-		6E8368761F9E57490067E96D /* jrx_untyped_subscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_untyped_subscriber.h; sourceTree = "<group>"; };
-		6E8368781F9E5EDD0067E96D /* jrx_operator_do.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_operator_do.hpp; sourceTree = "<group>"; };
-		6E8368791F9E5EDD0067E96D /* jrx_operator_do.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_operator_do.h; sourceTree = "<group>"; };
-		6E83687B1F9E7B7E0067E96D /* jrx_partial_value_holder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_partial_value_holder.hpp; sourceTree = "<group>"; };
-		6E83687C1F9E7B7E0067E96D /* jrx_partial_value_holder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_partial_value_holder.h; sourceTree = "<group>"; };
-		6E83687E1F9E7BEE0067E96D /* jrx_partial_value_observer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_partial_value_observer.hpp; sourceTree = "<group>"; };
-		6E83687F1F9E7BEE0067E96D /* jrx_partial_value_observer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_partial_value_observer.h; sourceTree = "<group>"; };
-		6EEDE1BA1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jrx_operator_combine_latest.hpp; sourceTree = "<group>"; };
-		6EEDE1BB1F97DC2600FBD05E /* jrx_operator_combine_latest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jrx_operator_combine_latest.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6E4B4C892D05C3F800854F02 /* jrx */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = jrx; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6E2AE4A42014B17800EC89AC /* Frameworks */ = {
@@ -51,8 +28,8 @@
 		6E6ACD9B1F8185B8009B1DE4 = {
 			isa = PBXGroup;
 			children = (
-				6E6ACDA61F8185B8009B1DE4 /* jrx */,
 				6E6ACDA51F8185B8009B1DE4 /* Products */,
+				6E4B4C892D05C3F800854F02 /* jrx */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,35 +39,6 @@
 				6E2AE4A72014B17800EC89AC /* libjrx.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6E6ACDA61F8185B8009B1DE4 /* jrx */ = {
-			isa = PBXGroup;
-			children = (
-				6E4BBCEE1F82B82F00E9F346 /* jrx.h */,
-				6E4BBCED1F82B82F00E9F346 /* jrx.cpp */,
-				6E4BBCF11F82B85600E9F346 /* jrx_observable.h */,
-				6E4BBCF01F82B85600E9F346 /* jrx_observable.hpp */,
-				6E4BBCF41F82B8E500E9F346 /* jrx_operator_filter.h */,
-				6E4BBCF31F82B8E500E9F346 /* jrx_operator_filter.hpp */,
-				6E4BBCF71F82BA7E00E9F346 /* jrx_operator_map.h */,
-				6E4BBCF61F82BA7E00E9F346 /* jrx_operator_map.hpp */,
-				6E8368781F9E5EDD0067E96D /* jrx_operator_do.hpp */,
-				6E8368791F9E5EDD0067E96D /* jrx_operator_do.h */,
-				6E8368751F9E57490067E96D /* jrx_untyped_subscriber.cpp */,
-				6E8368761F9E57490067E96D /* jrx_untyped_subscriber.h */,
-				6E4F47F71F8C11F7007A7265 /* jrx_typed_subscriber.hpp */,
-				6E4F47F81F8C11F7007A7265 /* jrx_typed_subscriber.h */,
-				6EEDE1BA1F97DC2600FBD05E /* jrx_operator_combine_latest.hpp */,
-				6EEDE1BB1F97DC2600FBD05E /* jrx_operator_combine_latest.h */,
-				6E83687B1F9E7B7E0067E96D /* jrx_partial_value_holder.hpp */,
-				6E83687C1F9E7B7E0067E96D /* jrx_partial_value_holder.h */,
-				6E83687E1F9E7BEE0067E96D /* jrx_partial_value_observer.hpp */,
-				6E83687F1F9E7BEE0067E96D /* jrx_partial_value_observer.h */,
-				6E56D04D1FA3C473009BB9D8 /* jrx_partial_value_observer_ptr_factory.hpp */,
-				6E56D04E1FA3C473009BB9D8 /* jrx_partial_value_observer_ptr_factory.h */,
-			);
-			path = jrx;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,6 +66,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				6E4B4C892D05C3F800854F02 /* jrx */,
+			);
 			name = jrx;
 			productName = jrx;
 			productReference = 6E2AE4A72014B17800EC89AC /* libjrx.a */;
@@ -144,6 +95,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 6E6ACD9B1F8185B8009B1DE4;
@@ -161,8 +113,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E2AE4AB2014B18300EC89AC /* jrx.cpp in Sources */,
-				6E2AE4AC2014B18700EC89AC /* jrx_untyped_subscriber.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

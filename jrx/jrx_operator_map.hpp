@@ -11,7 +11,7 @@ jrx::operators::Map<_SenderType, _NewChildType>::Map(std::function<_NewChildType
 : Observable<_SenderType, _NewChildType>([this](_SenderType &value) -> _NewChildType {
     auto tmp = m_pPreducate(value);
     return tmp;
-}){
+}) {
     m_pPreducate = _pPreducate;
 }
 

@@ -7,8 +7,8 @@
 //
 
 template<class Result>
-jrx::operators::CombineLatest<Result>::CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders) :
-Observable<Result, Result>([this]{
+jrx::operators::CombineLatest<Result>::CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders)
+: Observable<Result, Result>([this] {
     for (auto &valueObserverHolder : m_vValueObserverHolders) {
         valueObserverHolder->start();
     }
@@ -17,7 +17,7 @@ m_vValueObserverHolders(valueObserverHolders)
 {
     for (auto &valueObserverHolder : m_vValueObserverHolders) {
         valueObserverHolder->PartialValueHolder<Result>::m_pSharedObject = &m_Object;
-        valueObserverHolder->onNextValue([this](){
+        valueObserverHolder->onNextValue([this]() {
             this->onNext(m_Object);
         });
     }

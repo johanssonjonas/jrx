@@ -30,7 +30,6 @@ public:
     // merging
 	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> blargs) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>>;
 
-    
     // operators
     auto filter(std::function<bool(_ChildrenType &)> _pPreducate)
         -> ptr_observable_t<_SenderType>;
@@ -60,6 +59,7 @@ protected:
     container_t<ptr_t<TypedSubscriber<_ChildrenType>>> m_vChildren;
 
     auto onStart() -> void override;
+    virtual auto replay(func_t<void(_ChildrenType &)>) -> void;
 
 private:
     std::function<_ChildrenType(_SenderType &)> m_pConverted;

@@ -10,7 +10,8 @@
 #define jrx_operator_do_hpp
 
 template <class _SenderType, class _NewChildType>
-class jrx::operators::Do : public Observable<_SenderType, _NewChildType> {
+class jrx::operators::Do
+    : public Observable<_SenderType, _NewChildType> {
 public:
 
     Do(std::function<void(_SenderType &)> _pPreducate);
@@ -18,7 +19,6 @@ public:
     auto onNext(_SenderType &value) -> void override;
 
 private:
-
     std::function<void(_SenderType &)> m_pPreducate;
 };
 

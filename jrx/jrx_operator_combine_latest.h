@@ -10,7 +10,8 @@
 #define jrx_operator_combine_latest_hpp
 
 template<class Result>
-class jrx::operators::CombineLatest : public jrx::core::Observable<Result, Result> {
+class jrx::operators::CombineLatest
+    : public jrx::core::Observable<Result, Result> {
 public:
 	
     CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders);

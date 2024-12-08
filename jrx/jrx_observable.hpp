@@ -8,21 +8,18 @@
 
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::just(_ChildrenType &&value) -> std::shared_ptr<Observable<_SenderType>> {
-    
-    std::shared_ptr<Observable<_SenderType>> observable = std::shared_ptr<Observable<_SenderType>>{
+    std::shared_ptr<Observable<_SenderType>> observable = std::shared_ptr<Observable<_SenderType>> {
         new Observable<_SenderType>([&] {
             _ChildrenType hurp = value;
             observable->onNext(hurp);
         })
     };
-    
     return observable;
 }
 
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::forEach(std::vector<_ChildrenType> &&value) -> std::shared_ptr<Observable<_SenderType>> {
-    
-    std::shared_ptr<Observable<_SenderType>> observable = std::shared_ptr<Observable<_SenderType>>{
+    std::shared_ptr<Observable<_SenderType>> observable = std::shared_ptr<Observable<_SenderType>> {
         new Observable<_SenderType>([&] {
             for (int i = 0; i < value.size(); i++) {
                 observable->onNext(value[i]);
@@ -32,24 +29,19 @@ auto Observable<_SenderType, _ChildrenType>::forEach(std::vector<_ChildrenType> 
             }
         })
     };
-    
     return observable;
 }
 
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> blargs) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>> {
-    
     std::vector<std::shared_ptr<PartialValueHolder<_SenderType>>> blargsPtrs;
-    
-    for (auto blarg : blargs)
-    {
+    for (auto blarg : blargs) {
         blargsPtrs.push_back(blarg.ptr);
     }
-    
+
     std::shared_ptr<CombineLatest<_SenderType>> observable = std::shared_ptr<CombineLatest<_SenderType>>{
         new CombineLatest<_SenderType>(blargsPtrs)
     };
-
     return observable;
 }
 
@@ -76,6 +68,12 @@ template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::subscribe(std::function<void(_ChildrenType &)> _pFunc) -> void {
     this->m_vSubscribersOnNext.push_back(_pFunc);
     this->start();
+    this->replay(_pFunc);
+}
+
+template <class _SenderType, class _ChildrenType>
+auto Observable<_SenderType, _ChildrenType>::replay(std::function<void(_ChildrenType &)> _pFunc) -> void {
+    
 }
 
 template <class _SenderType, class _ChildrenType>
@@ -86,7 +84,7 @@ auto Observable<_SenderType, _ChildrenType>::onStart() -> void {
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::filter(std::function<bool(_ChildrenType &)> _pPreducate) -> std::shared_ptr<Observable<_SenderType>> {
     
-    auto ptr = std::shared_ptr<Observable<_SenderType>>{
+    auto ptr = std::shared_ptr<Observable<_SenderType>> {
         new Filter<_SenderType, _ChildrenType>{
             _pPreducate
         }

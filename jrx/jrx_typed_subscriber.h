@@ -11,7 +11,8 @@
 
 
 template <class _Ty>
-class jrx::core::TypedSubscriber : public jrx::core::UntypedSubscriber {
+class jrx::core::TypedSubscriber
+    : public jrx::core::UntypedSubscriber {
 public:
 
     virtual auto onNext(_Ty &value) -> void = 0;

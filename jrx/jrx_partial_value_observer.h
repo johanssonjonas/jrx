@@ -10,7 +10,8 @@
 #define jrx_partial_value_observer_hpp
 
 template <class _Ty, class _Ty2>
-class PartialValueObserver: public PartialValueHolder<_Ty2> {
+class PartialValueObserver
+    : public PartialValueHolder<_Ty2> {
 public:
 
     PartialValueObserver(std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> obs, _Ty _Ty2::* valueSetter);

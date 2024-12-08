@@ -64,6 +64,8 @@ Include all the source files into your project.
 Header files: `.h``.hpp`<br>
 Source files: `.cpp`
 
+TODO: Problem: this library does not run with optimizations.
+
 
 ## References
 
