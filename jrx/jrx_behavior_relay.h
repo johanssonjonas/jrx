@@ -11,8 +11,8 @@ class jrx::core::BehaviorRelay
     : public jrx::core::Observable<_SenderType, _ChildrenType> {
 public:
     
-    static auto seeded(_SenderType value) -> std::shared_ptr<BehaviorRelay<_SenderType, _ChildrenType>>;
-        
+    static auto seeded(_SenderType value) -> ObservablePtr<BehaviorRelay<_SenderType, _ChildrenType>>;
+    
     BehaviorRelay(typename Observable<_SenderType>::value_factory_t _pOnSubscribe);
     
     auto add(_SenderType value) -> void;

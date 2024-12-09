@@ -15,7 +15,11 @@ class jrx::operators::CombineLatest
 public:
 	
     CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders);
-    
+        
+protected:
+        
+    auto replay(std::function<void(Result &)> _pFunc) -> void override;
+        
 private:
     Result m_Object;
     std::vector<std::shared_ptr<PartialValueHolder<Result>>> m_vValueObserverHolders;

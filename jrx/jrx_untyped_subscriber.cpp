@@ -14,12 +14,17 @@ auto UntypedSubscriber::start() -> void {
 
 auto UntypedSubscriber::onNextValue(std::function<void()> func) -> void {
     m_vPostObservers.push_back(func);
+    
+    if (_bPostedValue) {
+        func(); // TODO: Not sure if this one is needed or not?
+    }
 }
 
 auto UntypedSubscriber::onValuePosted() -> void {
     for (auto func : m_vPostObservers) {
         func();
     }
+    _bPostedValue = true;
 }
 
 auto UntypedSubscriber::onStart() -> void {

@@ -24,6 +24,7 @@ protected:
     virtual auto onStart() -> void;
 
 private:
+    bool _bPostedValue = false;
     std::vector<std::function<void()>> m_vPostObservers;
 };
 

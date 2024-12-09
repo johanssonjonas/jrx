@@ -14,7 +14,7 @@ jrx::core::BehaviorRelay<_SenderType, _ChildrenType>::BehaviorRelay(typename Obs
 }
 
 template <class _SenderType, class _ChildrenType>
-auto jrx::core::BehaviorRelay<_SenderType, _ChildrenType>::seeded(_SenderType value) -> std::shared_ptr<BehaviorRelay<_SenderType, _ChildrenType>> {
+auto jrx::core::BehaviorRelay<_SenderType, _ChildrenType>::seeded(_SenderType value) -> ObservablePtr<BehaviorRelay<_SenderType, _ChildrenType>> {
     std::shared_ptr<BehaviorRelay<_SenderType>> observable = std::shared_ptr<BehaviorRelay<_SenderType>> {
         new BehaviorRelay<_SenderType>([&] {
         })

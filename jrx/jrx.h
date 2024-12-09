@@ -15,10 +15,10 @@
 
 
 namespace jrx {
-
     namespace core {
         class UntypedSubscriber;
         template <class _Ty> class TypedSubscriber;
+        template <class _Ty> class ObservablePtr;
         template <class _SenderType, class _ChildrenType> class Observable;
         template <class _SenderType, class _ChildrenType> class BehaviorRelay;
     }
@@ -47,6 +47,7 @@ using namespace jrx::utils::factories;
 #include "jrx_typed_subscriber.h"
 #include "jrx_partial_value_holder.h"
 #include "jrx_partial_value_observer.h"
+#include "jrx_observable_ptr.h"
 
 #include "jrx_observable.h"
 #include "jrx_behavior_relay.h"
