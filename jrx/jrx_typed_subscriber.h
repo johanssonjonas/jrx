@@ -14,14 +14,19 @@ template <class _Ty>
 class jrx::core::TypedSubscriber
     : public jrx::core::UntypedSubscriber {
 public:
-
-    virtual auto onNext(_Ty &value) -> void = 0;
-
-    // TODO: should be protected:
-    std::function<void(void)> m_pOnSubscribeRoot;
-
+    template<class _Func> using func_t = std::function<_Func>;
+        
+    virtual ~TypedSubscriber() { }
+    
+    virtual auto onNext(_Ty _tyValue) -> void = 0; // TODO: should be pure virtual and implemented in PublishedSubject/BehaviourSubject
+    virtual auto subscribe(func_t<void(_Ty &)> _pFunc) -> void;
+    
 protected:
+    
+    std::vector<func_t<void(_Ty &)>> m_vSubscribersOnNext;
+    std::vector<std::shared_ptr<TypedSubscriber<_Ty>>> m_vTypedChildren;
 
+    bool _bSubscribed = false;
 };
 
 #endif /* jrx_subscriber_hpp */

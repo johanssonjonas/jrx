@@ -11,21 +11,37 @@
 
 class jrx::core::UntypedSubscriber {
 public:
-
+    
     template<typename T, typename Y>
     friend class PartialValueObserver;
-	
-    auto start() -> void;
-    auto onNextValue(std::function<void()> func) -> void;
-    virtual auto onValuePosted() -> void;
+    
+    virtual ~UntypedSubscriber() { }
+    
+    virtual auto observeOnStart(std::function<void()> func) -> void;
+    virtual auto observeOnSubscribe(std::function<void()> func) -> void;
+    virtual auto observeOnNextValue(std::function<void()> func) -> void;
+    virtual auto observeOnCompleted(std::function<void()> func) -> void;
+    virtual auto observeOnError(std::function<void()> func) -> void;
+    
+    UntypedSubscriber *m_pParent; // TODO: Make this protected
     
 protected:
-
-    virtual auto onStart() -> void;
-
+    
+    auto onStart() -> void;       // When first value is posted
+    auto onSubscribe() -> void;   // When someone starts observing this
+    auto onNextValue() -> void;   // When a value is posted
+    auto onCompleted() -> void;   // When the stream is done
+    auto onError() -> void;       // When there is an error
+    
+    std::vector<std::shared_ptr<UntypedSubscriber>> m_vChildren;
+    
 private:
-    bool _bPostedValue = false;
-    std::vector<std::function<void()>> m_vPostObservers;
+    std::vector<std::function<void()>> m_vStartObservers;
+    std::vector<std::function<void()>> m_vSubscribeObservers;
+    std::vector<std::function<void()>> m_vOnNextObservers;
+    std::vector<std::function<void()>> m_vCompletedObservers;
+    std::vector<std::function<void()>> m_vErrorObservers;
+    
 };
 
 

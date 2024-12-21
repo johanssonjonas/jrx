@@ -2,7 +2,8 @@
 
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -std=c++11 -O0
+
+CXXFLAGS := -std=c++11 -OO
 INCLUDES := -I include
 
 # Make a variable for the source directory

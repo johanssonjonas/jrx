@@ -10,17 +10,25 @@ template <class _Ty, class _Ty2>
 PartialValueObserver<_Ty, _Ty2>::PartialValueObserver(std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> obs, _Ty _Ty2::* valueSetter) {
     m_pValueSetter = valueSetter;
     observable = obs;
-    obs->on([this](_Ty &val){
-        PartialValueHolder<_Ty2>::m_pSharedObject->*m_pValueSetter = val;
-    });
+    /*
+    obs->onNext({
+        this->onNextValue();
+    });*/
+    /*
     obs->onNextValue([this](){
         this->onValuePosted();
+    });*/
+    
+    this->observeOnSubscribe([&](){
+        observable->subscribe([this](_Ty &val){
+            PartialValueHolder<_Ty2>::m_pSharedObject->*m_pValueSetter = val;
+        });
     });
 }
-
+/*
 template <class _Ty, class _Ty2>
 auto PartialValueObserver<_Ty, _Ty2>::onStart() -> void {
     observable->start();
-}
+}*/
 
 

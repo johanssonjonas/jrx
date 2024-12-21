@@ -15,11 +15,17 @@ class jrx::operators::CombineLatest
 public:
 	
     CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders);
+    
+   // override this one from Observable and when it's called, make sure to send the last value (if it has been set) to the new subscriber.
+    // auto subscribe(std::function<void(Result &)>) -> void override; // TODO: should use func_t
+    
+    auto onNext(Result _tyValue) -> void override;
+        
         
 protected:
         
     auto replay(std::function<void(Result &)> _pFunc) -> void override;
-        
+    
 private:
     Result m_Object;
     std::vector<std::shared_ptr<PartialValueHolder<Result>>> m_vValueObserverHolders;

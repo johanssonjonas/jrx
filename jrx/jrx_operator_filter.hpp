@@ -10,10 +10,10 @@ template <class _Ty, class _Ty2>
 Filter<_Ty, _Ty2>::Filter(std::function<bool(_Ty &)> _pPreducate) {
     m_pPreducate = _pPreducate;
 }
-
+/*
 template <class _Ty, class _Ty2>
 auto Filter<_Ty, _Ty2>::onNext(_Ty &value) -> void {
     if (m_pPreducate(value)) {
         Observable<_Ty, _Ty2>::onNext(value);
     }
-}
+}*/

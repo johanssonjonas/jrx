@@ -16,7 +16,7 @@ public:
     
     Filter(std::function<bool(_Ty &)> _pPreducate);
     
-    auto onNext(_Ty &value) -> void override;
+    // auto onNext(_Ty &value) -> void override;
     
 private:
     

@@ -12,6 +12,7 @@ PartialValueObserverPtrFactory<Result>::PartialValueObserverPtrFactory(std::shar
     this->ptr = std::shared_ptr<PartialValueHolder<Combined>> {
         new PartialValueObserver<Y, Combined> { _pObservable, valueSetter }
     };
+    this->untypedSubscriber = _pObservable;
 }
 
 

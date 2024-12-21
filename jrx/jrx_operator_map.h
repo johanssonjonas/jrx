@@ -14,12 +14,12 @@ class jrx::operators::Map
     : public Observable<_SenderType, _NewChildType> {
 public:
     
-    Map(std::function<_NewChildType(_SenderType &)> _pPreducate);
+    Map(/*std::function<_NewChildType(_SenderType &)> _pPreducate*/);
 
-    auto onNext(_SenderType &value) -> void override;
+    virtual auto onNext(_SenderType value) -> void override;
     
 private:
-    std::function<_NewChildType(_SenderType &)> m_pPreducate;
+    // std::function<_NewChildType(_SenderType &)> m_pPreducate;
 };
 
 

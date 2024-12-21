@@ -13,12 +13,14 @@ template <class _Ty, class _Ty2>
 class PartialValueObserver
     : public PartialValueHolder<_Ty2> {
 public:
+        
+    friend class jrx::core::Observable<_Ty, _Ty>;
+    friend class jrx::operators::CombineLatest<_Ty>;
 
     PartialValueObserver(std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> obs, _Ty _Ty2::* valueSetter);
 
-    virtual auto onStart() -> void override;
     std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> observable;
-	
+        
 private:
     _Ty _Ty2:: *m_pValueSetter;
 };

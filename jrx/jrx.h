@@ -12,15 +12,18 @@
 #include <iostream>
 #include <vector>
 
-
-
 namespace jrx {
     namespace core {
+    
         class UntypedSubscriber;
         template <class _Ty> class TypedSubscriber;
         template <class _Ty> class ObservablePtr;
         template <class _SenderType, class _ChildrenType> class Observable;
-        template <class _SenderType, class _ChildrenType> class BehaviorRelay;
+        template <class _SenderType, class _ChildrenType> class BehaviorSubject;
+        template <class _SenderType, class _ChildrenType> class PublishSubject;
+
+        template<class _Func> using func_t = std::function<_Func>;
+        template<class _Ty1, class _Ty2 = _Ty1> using observable_ptr_t = ObservablePtr<Observable<_Ty1, _Ty2>>;
     }
     
     namespace operators {
@@ -42,15 +45,15 @@ using namespace jrx::operators;
 using namespace jrx::utils;
 using namespace jrx::utils::factories;
 
-
 #include "jrx_untyped_subscriber.h"
 #include "jrx_typed_subscriber.h"
 #include "jrx_partial_value_holder.h"
 #include "jrx_partial_value_observer.h"
 #include "jrx_observable_ptr.h"
 
-#include "jrx_observable.h"
-#include "jrx_behavior_relay.h"
+#include "core/observable.h"
+#include "jrx_behavior_subject.h"
+#include "jrx_publish_subject.h"
 #include "jrx_operator_filter.h"
 #include "jrx_operator_map.h"
 #include "jrx_operator_do.h"
@@ -60,8 +63,10 @@ using namespace jrx::utils::factories;
 #include "jrx_partial_value_observer.hpp"
 #include "jrx_operator_combine_latest.hpp"
 #include "jrx_partial_value_holder.hpp"
-#include "jrx_observable.hpp"
-#include "jrx_behavior_relay.hpp"
+#include "jrx_typed_subscriber.hpp"
+#include "core/observable.hpp"
+#include "jrx_behavior_subject.hpp"
+#include "jrx_publish_subject.hpp"
 #include "jrx_operator_filter.hpp"
 #include "jrx_operator_map.hpp"
 #include "jrx_operator_do.hpp"

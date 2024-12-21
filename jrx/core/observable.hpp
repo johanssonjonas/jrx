@@ -18,10 +18,8 @@ auto Observable<_SenderType, _ChildrenType>::just(_ChildrenType &&value) -> Obse
     return observable;
     */
 
-    auto relay = BehaviorRelay<_SenderType>::seeded(value);
     // TODO: this one should use a take(1) once that operator is implemented
-    auto observable = std::static_pointer_cast<Observable<_SenderType>>(relay);
-    return observable;
+    return std::static_pointer_cast<Observable<_SenderType>>(BehaviorSubject<_SenderType>::seeded(value));
 }
 
 template <class _SenderType, class _ChildrenType>
@@ -40,17 +38,16 @@ auto Observable<_SenderType, _ChildrenType>::forEach(std::vector<_ChildrenType> 
 }
 
 template <class _SenderType, class _ChildrenType> Observable<_SenderType, _ChildrenType>::Observable(value_retriever_t converter) {
-    this->m_pOnSubscribeRoot = nullptr;
     this->m_pConverted = converter;
 }
 
 template <class _SenderType, class _ChildrenType> Observable<_SenderType, _ChildrenType>::Observable() {
-    this->m_pOnSubscribeRoot = nullptr;
     this->m_pConverted = [](_SenderType &sender) -> _ChildrenType & {
         return sender;
     };
 }
 
+/*
 template <class _SenderType, class _ChildrenType> Observable<_SenderType, _ChildrenType>::Observable(std::function<void(void)> _pOnSubscribe) {
     this->m_pOnSubscribeRoot = _pOnSubscribe;
     this->m_pConverted = [](_SenderType &sender) -> _ChildrenType & {
@@ -60,10 +57,10 @@ template <class _SenderType, class _ChildrenType> Observable<_SenderType, _Child
 
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::subscribe(std::function<void(_ChildrenType &)> _pFunc) -> void {
-    this->m_vSubscribersOnNext.push_back(_pFunc);
-    this->start();
-    this->replay(_pFunc);
-}
+    this->m_vOnNextObserversValue.push_back(_pFunc);
+    this->onSubscribe();
+    this->onNextValue();
+}*/
 
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::replay(std::function<void(_ChildrenType &)> _pFunc) -> void {
@@ -71,25 +68,19 @@ auto Observable<_SenderType, _ChildrenType>::replay(std::function<void(_Children
 }
 
 template <class _SenderType, class _ChildrenType>
-auto Observable<_SenderType, _ChildrenType>::onStart() -> void {
-    this->m_pOnSubscribeRoot();
-}
-
-template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> input) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>> {
     
-    for (auto &valueObserverHolder : input) {
-        valueObserverHolder.ptr->start();
-        valueObserverHolder.ptr->onNextValue([]() {
-            std::cout << "onNextValue" << std::endl;
-        });
-    }
-    
     std::vector<std::shared_ptr<PartialValueHolder<_SenderType>>> ptrs;
-    for (auto value : input) {
+    for (PartialValueObserverPtrFactory<_SenderType> value : input) {
+        
+        value.untypedSubscriber->observeOnNextValue([value]() {
+            // value.observable->onNext(value.ptr);
+            std::cout << "Hmm";
+        });
+        
         ptrs.push_back(value.ptr);
     }
-
+    
     std::shared_ptr<CombineLatest<_SenderType>> observable = std::shared_ptr<CombineLatest<_SenderType>>{
         new CombineLatest<_SenderType>(ptrs)
     };
@@ -107,28 +98,44 @@ auto Observable<_SenderType, _ChildrenType>::filter(std::function<bool(_Children
     };
     
     auto convertedPtr = std::static_pointer_cast<::TypedSubscriber<_SenderType>>(ptr);
-    m_vChildren.push_back(convertedPtr);
+    this->m_vChildren.push_back(convertedPtr);
 
-    m_vChildren.back()->m_pOnSubscribeRoot = this->m_pOnSubscribeRoot;
+    // m_vChildren.back()->m_pOnSubscribeRoot = this->m_pOnSubscribeRoot;
     
     return ptr;
 }
 
 template <class _SenderType, class _ChildrenType>
 template <class _NewChildType>
-auto Observable<_SenderType, _ChildrenType>::map(std::function<_NewChildType(_SenderType &)> _pFilter) -> ObservablePtr<Observable<_SenderType, _NewChildType>> {
+auto Observable<_SenderType, _ChildrenType>
+::map(func_t<_NewChildType(_SenderType)> _pFilter) -> observable_ptr_t<_NewChildType> {
     
-    std::shared_ptr<Observable<_ChildrenType, _NewChildType>> ptr {
+    PublishSubject<_NewChildType> *publishSubect = new PublishSubject<_NewChildType>();
+    observable_ptr_t<_NewChildType> ptr = publishSubect;
+    
+    this->subscribe([=](auto value) {
+        ptr->onNext(_pFilter(value));
+    });
+    
+    /*
+    std::shared_ptr<Observable<_ChildrenType, _ChildrenType>> ptr {
         new Map<_ChildrenType, _NewChildType>{
-            _pFilter
+            // _pFilter
         }
     };
     
-    m_vChildren.push_back(ptr);
-    ptr->m_pOnSubscribeRoot = this->m_pOnSubscribeRoot;
+    
+    
+    // Make sure to pass on all events to the new observable
+    ptr->m_pParent = this;
+    
+    this->m_vChildren.push_back(ptr);
+    this->m_vTypedChildren.push_back(ptr);
+    return ptr;*/
+    
     return ptr;
 }
-
+/*
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::on(std::function<void(_SenderType &)> _pFilter) -> ObservablePtr<Observable<_SenderType, _ChildrenType>> {
 
@@ -139,31 +146,19 @@ auto Observable<_SenderType, _ChildrenType>::on(std::function<void(_SenderType &
     };
 
     m_vChildren.push_back(ptr);
-    ptr->m_pOnSubscribeRoot = this->m_pOnSubscribeRoot;
     return ptr;
-}
+}*/
 
+/*
 template <class _SenderType, class _ChildrenType>
 auto Observable<_SenderType, _ChildrenType>::onNext(_SenderType &value) -> void {
     auto val = m_pConverted(value);
     for (int i = 0; i < m_vChildren.size(); i++) {
         m_vChildren[i]->onNext(val);
     }
-    for (int i = 0; i < m_vSubscribersOnNext.size(); i++) {
-        m_vSubscribersOnNext[i](val);
+    for (int i = 0; i < m_vOnNextObserversValue.size(); i++) {
+        m_vOnNextObserversValue[i](val);
     }
 
-    this->onValuePosted();
-}
-
-template <class _SenderType, class _ChildrenType>
-auto Observable<_SenderType, _ChildrenType>::onCompleted() -> void {
-    
-}
-
-template <class _SenderType, class _ChildrenType>
-auto Observable<_SenderType, _ChildrenType>::onError() -> void {
-    
-}
-
-
+    this->onNextValue();
+}*/

@@ -8,25 +8,57 @@
 
 #include "jrx.h"
 
-auto UntypedSubscriber::start() -> void {
-    onStart();
+auto UntypedSubscriber::observeOnStart(std::function<void()> func) -> void {
+    m_vStartObservers.push_back(func);
 }
 
-auto UntypedSubscriber::onNextValue(std::function<void()> func) -> void {
-    m_vPostObservers.push_back(func);
-    
-    if (_bPostedValue) {
-        func(); // TODO: Not sure if this one is needed or not?
-    }
+auto UntypedSubscriber::observeOnSubscribe(std::function<void()> func) -> void {
+    m_vSubscribeObservers.push_back(func);
 }
 
-auto UntypedSubscriber::onValuePosted() -> void {
-    for (auto func : m_vPostObservers) {
-        func();
-    }
-    _bPostedValue = true;
+auto UntypedSubscriber::observeOnNextValue(std::function<void ()> func) -> void {
+    m_vOnNextObservers.push_back(func);
+}
+
+auto UntypedSubscriber::observeOnCompleted(std::function<void()> func) -> void {
+    m_vCompletedObservers.push_back(func);
+}
+
+auto UntypedSubscriber::observeOnError(std::function<void()> func) -> void {
+    m_vErrorObservers.push_back(func);
 }
 
 auto UntypedSubscriber::onStart() -> void {
+    for (auto func : m_vStartObservers) {
+        func();
+    }
     
+    for (auto child : m_vChildren) {
+        child->onStart();
+    }
+}
+
+auto UntypedSubscriber::onSubscribe() -> void {
+    for (auto func : m_vSubscribeObservers) {
+        func();
+    }
+    
+    if (m_pParent != nullptr) {
+        m_pParent->onSubscribe();
+    }
+}
+auto UntypedSubscriber::onNextValue() -> void {
+    for (auto func : m_vOnNextObservers) {
+        func();
+    }
+}
+auto UntypedSubscriber::onCompleted() -> void {
+    for (auto func : m_vCompletedObservers) {
+        func();
+    }
+}
+auto UntypedSubscriber::onError() -> void {
+    for (auto func : m_vErrorObservers) {
+        func();
+    }
 }

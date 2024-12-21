@@ -19,52 +19,41 @@ template <class _SenderType, class _ChildrenType = _SenderType>
 class jrx::core::Observable
 	: public jrx::core::TypedSubscriber<_SenderType> {
 public:
+        
+    virtual ~Observable() { }
 
-	template<class _Ty> using func_t = std::function<_Ty>;
+	// template<class _Ty> using func_t = std::function<_Ty>;
     template<class _Ty> using container_t = std::vector<_Ty>;
 	template<class _Ty> using ptr_t = std::shared_ptr<_Ty>;
-    template<class _Ty1, class _Ty2 = _Ty1> using ptr_observable_t = ObservablePtr<Observable<_Ty1, _Ty2>>;
     typedef func_t<void(void)> value_factory_t;
     typedef func_t<_ChildrenType(_SenderType &)> value_retriever_t;
 
     // creating observables
     static auto just(_ChildrenType &&value)
-        -> ptr_observable_t<_SenderType>;
+        -> observable_ptr_t<_SenderType>;
     static auto forEach(std::vector<_ChildrenType> &&value)
-        -> ptr_observable_t<_SenderType>;
+        -> observable_ptr_t<_SenderType>;
 
     // merging
 	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> input) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>>;
 
     // operators
     auto filter(std::function<bool(_ChildrenType &)> _pPreducate)
-        -> ptr_observable_t<_SenderType>;
-    template <class _NewChildType>
-        auto map(std::function<_NewChildType(_SenderType &)> _pFilter)
-        	-> ptr_observable_t<_SenderType, _NewChildType>;
-    auto on(std::function<void(_SenderType &)> _pFilter)
-            -> ptr_observable_t<_SenderType, _ChildrenType>;
+        -> observable_ptr_t<_SenderType>;
+    template <class _NewChildType> auto map(func_t<_NewChildType(_SenderType)> _pFilter) -> observable_ptr_t<_NewChildType>;
+    // auto on(std::function<void(_SenderType &)> _pFilter)
+    //         -> observable_ptr_t<_SenderType, _ChildrenType>;
 
-    // posting
-    virtual auto onNext(_SenderType &value)
-        -> void override;
-    virtual auto onCompleted()
-        -> void;
-    virtual auto onError()
-        -> void;
-    
     // subscription
-    auto subscribe(func_t<void(_ChildrenType &)>) -> void;
+    // virtual auto subscribe(func_t<void(_ChildrenType &)>) -> void;
     
 protected:
     
     Observable(value_retriever_t converter);
     Observable();
-    Observable(value_factory_t _pOnSubscribe);
-	container_t<func_t<void(_ChildrenType &)>> m_vSubscribersOnNext;
-    container_t<ptr_t<TypedSubscriber<_ChildrenType>>> m_vChildren;
+    // Observable(value_factory_t _pOnSubscribe);
+    // std::vector<std::function<void(_ChildrenType &)>> m_vOnNextObserversValue;
 
-    auto onStart() -> void override;
     virtual auto replay(func_t<void(_ChildrenType &)>) -> void;
 
 private:
