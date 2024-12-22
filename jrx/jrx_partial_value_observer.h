@@ -14,15 +14,17 @@ class PartialValueObserver
     : public PartialValueHolder<_Ty2> {
 public:
         
-    friend class jrx::core::Observable<_Ty, _Ty>;
+    friend class jrx::core::Observable<_Ty>;
     friend class jrx::operators::CombineLatest<_Ty>;
 
-    PartialValueObserver(std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> obs, _Ty _Ty2::* valueSetter);
+    PartialValueObserver(ObservablePtr<_Ty> obs, _Ty _Ty2::* valueSetter);
 
-    std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> observable;
+    ObservablePtr<_Ty> observable;
         
 private:
     _Ty _Ty2:: *m_pValueSetter;
+        
+    // std::vector<ObservableDisposer> m_vDisposers;
 };
 
 #endif /* jrx_partial_value_observer_hpp */

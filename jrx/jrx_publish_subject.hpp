@@ -8,20 +8,19 @@
 
 #include "jrx.h"
 
-template <class _SenderType, class _ChildrenType> auto jrx::core::PublishSubject<_SenderType, _ChildrenType>
-::create() -> ObservablePtr<PublishSubject<_SenderType>> {
-    auto res = ObservablePtr<PublishSubject<_SenderType>> {
-        new PublishSubject<_SenderType>()
-    };
-    return res;
+template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
+::create() -> ObservablePtr<_SenderType> {
+    auto obj = new PublishSubject<_SenderType>();
+    auto ptr = obj->template getPtr<Observable<_SenderType>>();
+    return ptr;
 }
 
-template <class _SenderType, class _ChildrenType> jrx::core::PublishSubject<_SenderType, _ChildrenType>
-::PublishSubject() {
+template <class _SenderType> jrx::core::PublishSubject<_SenderType>
+::PublishSubject() : Observable<_SenderType>() {
     
 }
 
-template <class _SenderType, class _ChildrenType> auto jrx::core::PublishSubject<_SenderType, _ChildrenType>
+template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
 ::onNext(_SenderType _tyValue) -> void {
     if (!_bStarted) {
         _bStarted = true;
@@ -30,7 +29,7 @@ template <class _SenderType, class _ChildrenType> auto jrx::core::PublishSubject
     TypedSubscriber<_SenderType>::onNext(_tyValue);
 }
 
-template <class _SenderType, class _ChildrenType> auto jrx::core::PublishSubject<_SenderType, _ChildrenType>
-::subscribe(func_t<void(_SenderType &)> _pFunc) -> void {
-    TypedSubscriber<_SenderType>::subscribe(_pFunc);
+template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
+::subscribe(std::function<void(_SenderType)> _pFunc) -> ObservableDisposer {
+    return TypedSubscriber<_SenderType>::subscribe(_pFunc);
 }

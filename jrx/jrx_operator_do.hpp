@@ -5,9 +5,9 @@
 //  Created by Jonas Johansson on 2017-10-23.
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
-
+/*
 template <class _SenderType, class _NewChildType>
-jrx::operators::Do<_SenderType, _NewChildType>::Do(std::function<void(_SenderType &)> _pPreducate)
+jrx::operators::Do<_SenderType>::Do(std::function<void(_SenderType &)> _pPreducate)
 : Observable<_SenderType, _NewChildType>([this](_SenderType &value) -> _SenderType {
     m_pPreducate(value);
     return value;
@@ -22,5 +22,5 @@ auto jrx::operators::Do<_SenderType, _NewChildType>::onNext(_SenderType &value) 
     Observable<_SenderType, _NewChildType>::onNext(value);
 }
 
-
+*/
 

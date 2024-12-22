@@ -11,23 +11,23 @@
 
 template<class Result>
 class jrx::operators::CombineLatest
-    : public jrx::core::Observable<Result, Result> {
+    : public jrx::core::ReplaySubject<Result> {
 public:
 	
-    CombineLatest(std::vector<std::shared_ptr<PartialValueHolder<Result>>> valueObserverHolders);
+    CombineLatest(std::vector<PartialValueObserverPtrFactory<Result>> _vInput);
     
    // override this one from Observable and when it's called, make sure to send the last value (if it has been set) to the new subscriber.
     // auto subscribe(std::function<void(Result &)>) -> void override; // TODO: should use func_t
     
-    auto onNext(Result _tyValue) -> void override;
-        
-        
+    // auto onNext(Result _tyValue) -> void override;
 protected:
         
-    auto replay(std::function<void(Result &)> _pFunc) -> void override;
+    // auto replay(std::function<void(Result &)> _pFunc) -> void override;
     
 private:
     Result m_Object;
+    std::vector<int> m_vCounter;
+    int m_iReadyCount;
     std::vector<std::shared_ptr<PartialValueHolder<Result>>> m_vValueObserverHolders;
 };
 

@@ -9,9 +9,9 @@
 #ifndef jorx_operator_where_hpp
 #define jorx_operator_where_hpp
 
-template <class _Ty, class _Ty2 = _Ty>
+template <class _Ty>
 class Filter
-    : public jrx::core::Observable<_Ty, _Ty2> {
+    : public jrx::core::Observable<_Ty> {
 public:
     
     Filter(std::function<bool(_Ty &)> _pPreducate);

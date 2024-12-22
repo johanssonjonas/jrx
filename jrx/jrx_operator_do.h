@@ -9,9 +9,9 @@
 #ifndef jrx_operator_do_hpp
 #define jrx_operator_do_hpp
 
-template <class _SenderType, class _NewChildType>
+template <class _SenderType>
 class jrx::operators::Do
-    : public Observable<_SenderType, _NewChildType> {
+    : public Observable<_SenderType> {
 public:
 
     Do(std::function<void(_SenderType &)> _pPreducate);

@@ -8,34 +8,22 @@
 
 #include "jrx.h"
 
-template <class _SenderType, class _ChildrenType> auto jrx::core::BehaviorSubject<_SenderType, _ChildrenType>
-::seeded(_SenderType value) -> ObservablePtr<BehaviorSubject<_SenderType>> {
-    auto res = ObservablePtr<BehaviorSubject<_SenderType>> {
-        new BehaviorSubject<_SenderType>()
-    };
-    res->onNext(value);
-    return res;
+template <class _SenderType> auto jrx::core::BehaviorSubject<_SenderType>
+::seeded(_SenderType value) -> ObservablePtr<_SenderType> {
+    auto obj = new BehaviorSubject<_SenderType>();
+    auto ptr = obj->template getPtr<Observable<_SenderType>>();
+    ptr->onNext(value);
+    return ptr;
+    
+    /*
+    Showing Recent Messages
+    No viable conversion from returned value of type
+        'RetainablePointer<jrx::core::BehaviorSubject<int>>' to function return type
+        'RetainablePointer<Observable<BehaviorSubject<int, int>, BehaviorSubject<int, int>>>'
+    */
 }
 
-template <class _SenderType, class _ChildrenType> jrx::core::BehaviorSubject<_SenderType, _ChildrenType>
+template <class _SenderType> jrx::core::BehaviorSubject<_SenderType>
 ::BehaviorSubject() {
     
-}
-
-template <class _SenderType, class _ChildrenType> auto jrx::core::BehaviorSubject<_SenderType, _ChildrenType>
-::onNext(_SenderType _tyValue) -> void {
-    if (!_bStarted) {
-        _bStarted = true;
-        TypedSubscriber<_SenderType>::onStart();
-    }
-    value = _tyValue;
-    TypedSubscriber<_SenderType>::onNext(value);
-}
-
-template <class _SenderType, class _ChildrenType> auto jrx::core::BehaviorSubject<_SenderType, _ChildrenType>
-::subscribe(func_t<void(_SenderType &)> _pFunc) -> void {
-    if (_bStarted) {
-        _pFunc(value);
-    }
-    TypedSubscriber<_SenderType>::subscribe(_pFunc);
 }

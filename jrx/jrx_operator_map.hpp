@@ -5,10 +5,10 @@
 //  Created by Jonas Johansson on 2017-10-02.
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
-
-template <class _SenderType, class _NewChildType> jrx::operators::Map<_SenderType, _NewChildType>
-::Map(/*std::function<_NewChildType(_SenderType &)> _pPreducate*/)
-: Observable<_SenderType, _NewChildType>([this](_SenderType &value) -> _NewChildType {
+/*
+template <class _SenderType> jrx::operators::Map<_SenderType>
+::Map(/*std::function<_NewChildType(_SenderType &)> _pPreducate)
+: Observable<_SenderType>([this](_SenderType &value) -> _SenderType {
     // auto tmp = m_pPreducate(value);
     // return tmp;
 }) {
@@ -28,5 +28,5 @@ template <class _SenderType, class _NewChildType> auto jrx::operators
     /*
     for (int i = 0; i < this->m_vSubscribersOnNext.size(); i++) {
         this->m_vSubscribersOnNext[i](converted);
-    }*/
-}
+    }
+}*/

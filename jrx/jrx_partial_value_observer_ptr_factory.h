@@ -13,9 +13,9 @@ template <class Result>
 class jrx::utils::factories::PartialValueObserverPtrFactory {
 public:
     template <class Combined, class Y>
-	PartialValueObserverPtrFactory(std::shared_ptr<Observable<Y>> _pObservable, Y Combined::* valueSetter);
+    PartialValueObserverPtrFactory(ObservablePtr<Y> _pObservable, Y Combined::* valueSetter);
     std::shared_ptr<PartialValueHolder<Result>> ptr;
-    std::shared_ptr<UntypedSubscriber> untypedSubscriber;
+    RetainablePointer<UntypedSubscriber> untypedSubscriber;
 };
 
 #endif /* jrx_partial_value_observer_ptr_factory_hpp */

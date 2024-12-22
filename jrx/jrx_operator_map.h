@@ -9,9 +9,9 @@
 #ifndef jorx_operator_map_hpp
 #define jorx_operator_map_hpp
 
-template <class _SenderType, class _NewChildType>
+template <class _SenderType>
 class jrx::operators::Map
-    : public Observable<_SenderType, _NewChildType> {
+    : public Observable<_SenderType> {
 public:
     
     Map(/*std::function<_NewChildType(_SenderType &)> _pPreducate*/);

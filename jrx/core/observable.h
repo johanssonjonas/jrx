@@ -15,30 +15,28 @@
 
 
 
-template <class _SenderType, class _ChildrenType = _SenderType>
+template <class _SenderType>
 class jrx::core::Observable
 	: public jrx::core::TypedSubscriber<_SenderType> {
 public:
         
     virtual ~Observable() { }
 
-	// template<class _Ty> using func_t = std::function<_Ty>;
+	template<class _Ty> using func_t = std::function<_Ty>;
     template<class _Ty> using container_t = std::vector<_Ty>;
 	template<class _Ty> using ptr_t = std::shared_ptr<_Ty>;
     typedef func_t<void(void)> value_factory_t;
-    typedef func_t<_ChildrenType(_SenderType &)> value_retriever_t;
+    typedef func_t<_SenderType(_SenderType &)> value_retriever_t;
 
     // creating observables
-    static auto just(_ChildrenType &&value)
-        -> observable_ptr_t<_SenderType>;
-    static auto forEach(std::vector<_ChildrenType> &&value)
-        -> observable_ptr_t<_SenderType>;
+    static auto just(_SenderType &&value) -> observable_ptr_t<_SenderType>;
+    static auto forEach(std::vector<_SenderType> &&value) -> observable_ptr_t<_SenderType>;
 
     // merging
-	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> input) -> std::shared_ptr<jrx::operators::CombineLatest<_SenderType>>;
+	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> input) -> ObservablePtr<_SenderType>;
 
     // operators
-    auto filter(std::function<bool(_ChildrenType &)> _pPreducate)
+    auto filter(std::function<bool(_SenderType &)> _pPreducate)
         -> observable_ptr_t<_SenderType>;
     template <class _NewChildType> auto map(func_t<_NewChildType(_SenderType)> _pFilter) -> observable_ptr_t<_NewChildType>;
     // auto on(std::function<void(_SenderType &)> _pFilter)
@@ -49,15 +47,15 @@ public:
     
 protected:
     
-    Observable(value_retriever_t converter);
+    // Observable(value_retriever_t converter);
     Observable();
     // Observable(value_factory_t _pOnSubscribe);
     // std::vector<std::function<void(_ChildrenType &)>> m_vOnNextObserversValue;
 
-    virtual auto replay(func_t<void(_ChildrenType &)>) -> void;
+    virtual auto replay(func_t<void(_SenderType &)>) -> void;
 
 private:
-    std::function<_ChildrenType(_SenderType &)> m_pConverted;
+    // std::function<_ChildrenType(_SenderType &)> m_pConverted;
 };
 
 

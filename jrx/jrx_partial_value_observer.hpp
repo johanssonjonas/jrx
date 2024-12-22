@@ -7,7 +7,7 @@
 //
 
 template <class _Ty, class _Ty2>
-PartialValueObserver<_Ty, _Ty2>::PartialValueObserver(std::shared_ptr<jrx::core::Observable<_Ty, _Ty>> obs, _Ty _Ty2::* valueSetter) {
+PartialValueObserver<_Ty, _Ty2>::PartialValueObserver(ObservablePtr<_Ty> obs, _Ty _Ty2::* valueSetter) {
     m_pValueSetter = valueSetter;
     observable = obs;
     /*
@@ -19,10 +19,13 @@ PartialValueObserver<_Ty, _Ty2>::PartialValueObserver(std::shared_ptr<jrx::core:
         this->onValuePosted();
     });*/
     
+    
+    
     this->observeOnSubscribe([&](){
-        observable->subscribe([this](_Ty &val){
+        observable->subscribe([this](_Ty val){
             PartialValueHolder<_Ty2>::m_pSharedObject->*m_pValueSetter = val;
         });
+        // TODO: FIX
     });
 }
 /*

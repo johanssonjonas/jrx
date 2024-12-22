@@ -8,6 +8,17 @@
 
 #include "jrx.h"
 
+UntypedSubscriber::UntypedSubscriber() :
+m_pParent(nullptr), m_pDisposer(ObservableDisposer {
+    this
+}) {
+    
+}
+
+auto UntypedSubscriber::getRoot() -> UntypedSubscriber * {
+    return m_pParent != nullptr ? m_pParent->getRoot() : this;
+}
+
 auto UntypedSubscriber::observeOnStart(std::function<void()> func) -> void {
     m_vStartObservers.push_back(func);
 }
@@ -16,8 +27,16 @@ auto UntypedSubscriber::observeOnSubscribe(std::function<void()> func) -> void {
     m_vSubscribeObservers.push_back(func);
 }
 
-auto UntypedSubscriber::observeOnNextValue(std::function<void ()> func) -> void {
+auto UntypedSubscriber::observeOnNext(std::function<void ()> func) -> void {
     m_vOnNextObservers.push_back(func);
+}
+
+auto UntypedSubscriber::observeOnPreviousOrNextValue(std::function<void ()> func) -> void {
+    m_vOnAnyObservers.push_back(func);
+    
+    if (m_bAnyValueSent) {
+        func();
+    }
 }
 
 auto UntypedSubscriber::observeOnCompleted(std::function<void()> func) -> void {
@@ -39,15 +58,21 @@ auto UntypedSubscriber::onStart() -> void {
 }
 
 auto UntypedSubscriber::onSubscribe() -> void {
-    for (auto func : m_vSubscribeObservers) {
-        func();
-    }
-    
     if (m_pParent != nullptr) {
         m_pParent->onSubscribe();
     }
+    for (auto func : m_vSubscribeObservers) {
+        func();
+    }
 }
 auto UntypedSubscriber::onNextValue() -> void {
+    
+    m_bAnyValueSent = true;
+    
+    for (auto func : m_vOnAnyObservers) {
+        func();
+    }
+    
     for (auto func : m_vOnNextObservers) {
         func();
     }

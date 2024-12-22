@@ -10,6 +10,8 @@
 #define jrx_subscriber_hpp
 
 
+
+
 template <class _Ty>
 class jrx::core::TypedSubscriber
     : public jrx::core::UntypedSubscriber {
@@ -19,11 +21,13 @@ public:
     virtual ~TypedSubscriber() { }
     
     virtual auto onNext(_Ty _tyValue) -> void = 0; // TODO: should be pure virtual and implemented in PublishedSubject/BehaviourSubject
-    virtual auto subscribe(func_t<void(_Ty &)> _pFunc) -> void;
+    virtual auto subscribe(std::function<void(_Ty)> _pFunc) -> ObservableDisposer;
+    virtual auto observeOnNextValue(std::function<void(_Ty)> _pFunc) -> void;
     
 protected:
     
     std::vector<func_t<void(_Ty &)>> m_vSubscribersOnNext;
+    std::vector<std::function<void(_Ty)>> m_vOnNextValueObservers;
     std::vector<std::shared_ptr<TypedSubscriber<_Ty>>> m_vTypedChildren;
 
     bool _bSubscribed = false;
