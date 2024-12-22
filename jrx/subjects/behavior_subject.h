@@ -7,8 +7,8 @@
 //
 
 template <class _SenderType>
-class jrx::core::BehaviorSubject
-    : public jrx::core::ReplaySubject<_SenderType> {
+class jrx::subjects::BehaviorSubject
+    : public jrx::subjects::ReplaySubject<_SenderType> {
 public:
     
     static auto seeded(_SenderType value) -> ObservablePtr<_SenderType>;

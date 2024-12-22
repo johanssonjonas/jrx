@@ -7,7 +7,7 @@
 //
 
 template <class _SenderType>
-class jrx::core::PublishSubject
+class jrx::subjects::PublishSubject
     : public jrx::core::Observable<_SenderType> {
 public:
     

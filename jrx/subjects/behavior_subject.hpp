@@ -8,7 +8,7 @@
 
 #include "jrx.h"
 
-template <class _SenderType> auto jrx::core::BehaviorSubject<_SenderType>
+template <class _SenderType> auto jrx::subjects::BehaviorSubject<_SenderType>
 ::seeded(_SenderType value) -> ObservablePtr<_SenderType> {
     auto obj = new BehaviorSubject<_SenderType>();
     auto ptr = obj->template getPtr<Observable<_SenderType>>();
@@ -23,7 +23,7 @@ template <class _SenderType> auto jrx::core::BehaviorSubject<_SenderType>
     */
 }
 
-template <class _SenderType> jrx::core::BehaviorSubject<_SenderType>
+template <class _SenderType> jrx::subjects::BehaviorSubject<_SenderType>
 ::BehaviorSubject() {
     
 }

@@ -33,17 +33,11 @@ public:
     static auto forEach(std::vector<_SenderType> &&value) -> observable_ptr_t<_SenderType>;
 
     // merging
-	static auto combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> input) -> ObservablePtr<_SenderType>;
+	static auto combineLatest(std::vector<jrx::factories::fragments::PartialValueObserverPtrFactory<_SenderType>> input) -> ObservablePtr<_SenderType>;
 
     // operators
-    auto filter(std::function<bool(_SenderType &)> _pPreducate)
-        -> observable_ptr_t<_SenderType>;
+    auto filter(std::function<bool(_SenderType &)> _pPreducate) -> observable_ptr_t<_SenderType>;
     template <class _NewChildType> auto map(func_t<_NewChildType(_SenderType)> _pFilter) -> observable_ptr_t<_NewChildType>;
-    // auto on(std::function<void(_SenderType &)> _pFilter)
-    //         -> observable_ptr_t<_SenderType, _ChildrenType>;
-
-    // subscription
-    // virtual auto subscribe(func_t<void(_ChildrenType &)>) -> void;
     
 protected:
     

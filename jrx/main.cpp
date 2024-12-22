@@ -74,8 +74,8 @@ void smallTest() {
 
 int main(int argc, const char * argv[]) {
     
-    // smallTest();
-    // test();
+    smallTest();
+    test();
     // UntypedSubscrinber = ColdObservable
     // TypedSubscriber = ColdObservable
     // ReplayTypedSubscriber = HotObservable // New

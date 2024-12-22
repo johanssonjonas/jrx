@@ -7,8 +7,8 @@
 //
 
 template <class Result>
-template <class Combined, class Y>
-PartialValueObserverPtrFactory<Result>::PartialValueObserverPtrFactory(ObservablePtr<Y> _pObservable, Y Combined::* valueSetter) {
+template <class Combined, class Y> jrx::factories::fragments
+::PartialValueObserverPtrFactory<Result>::PartialValueObserverPtrFactory(ObservablePtr<Y> _pObservable, Y Combined::* valueSetter) {
     this->ptr = std::shared_ptr<PartialValueHolder<Combined>> {
         new PartialValueObserver<Y, Combined> { _pObservable, valueSetter }
     };

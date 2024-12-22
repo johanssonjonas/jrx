@@ -10,12 +10,12 @@
 #define jrx_partial_value_observer_hpp
 
 template <class _Ty, class _Ty2>
-class PartialValueObserver
-    : public PartialValueHolder<_Ty2> {
+class jrx::factories::fragments::PartialValueObserver
+    : public jrx::factories::fragments::PartialValueHolder<_Ty2> {
 public:
         
     friend class jrx::core::Observable<_Ty>;
-    friend class jrx::operators::CombineLatest<_Ty>;
+    friend class jrx::factories::CombineLatest<_Ty>;
 
     PartialValueObserver(ObservablePtr<_Ty> obs, _Ty _Ty2::* valueSetter);
 

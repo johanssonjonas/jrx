@@ -7,7 +7,7 @@
 //
 
 template <class _SenderType>
-class jrx::core::ReplaySubject
+class jrx::subjects::ReplaySubject
     : public jrx::core::Observable<_SenderType> {
 public:
     

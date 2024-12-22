@@ -10,12 +10,12 @@
 #define jrx_partial_value_observer_ptr_factory_hpp
 
 template <class Result>
-class jrx::utils::factories::PartialValueObserverPtrFactory {
+class jrx::factories::fragments::PartialValueObserverPtrFactory {
 public:
     template <class Combined, class Y>
     PartialValueObserverPtrFactory(ObservablePtr<Y> _pObservable, Y Combined::* valueSetter);
     std::shared_ptr<PartialValueHolder<Result>> ptr;
-    RetainablePointer<UntypedSubscriber> untypedSubscriber;
+    RetainedPtr<UntypedSubscriber> untypedSubscriber;
 };
 
 #endif /* jrx_partial_value_observer_ptr_factory_hpp */

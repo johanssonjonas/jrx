@@ -10,7 +10,7 @@
 #define jrx_partial_value_holder_hpp
 
 template <class _Ty>
-class PartialValueHolder
+class jrx::factories::fragments::PartialValueHolder
     : public UntypedSubscriber {
 public:
 	

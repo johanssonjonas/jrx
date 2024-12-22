@@ -8,19 +8,19 @@
 
 #include "jrx.h"
 
-template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
+template <class _SenderType> auto jrx::subjects::PublishSubject<_SenderType>
 ::create() -> ObservablePtr<_SenderType> {
     auto obj = new PublishSubject<_SenderType>();
     auto ptr = obj->template getPtr<Observable<_SenderType>>();
     return ptr;
 }
 
-template <class _SenderType> jrx::core::PublishSubject<_SenderType>
+template <class _SenderType> jrx::subjects::PublishSubject<_SenderType>
 ::PublishSubject() : Observable<_SenderType>() {
     
 }
 
-template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
+template <class _SenderType> auto jrx::subjects::PublishSubject<_SenderType>
 ::onNext(_SenderType _tyValue) -> void {
     if (!_bStarted) {
         _bStarted = true;
@@ -29,7 +29,7 @@ template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
     TypedSubscriber<_SenderType>::onNext(_tyValue);
 }
 
-template <class _SenderType> auto jrx::core::PublishSubject<_SenderType>
+template <class _SenderType> auto jrx::subjects::PublishSubject<_SenderType>
 ::subscribe(std::function<void(_SenderType)> _pFunc) -> ObservableDisposer {
     return TypedSubscriber<_SenderType>::subscribe(_pFunc);
 }

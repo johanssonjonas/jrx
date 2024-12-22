@@ -6,9 +6,9 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-template<class Result> jrx::operators::CombineLatest<Result>
-::CombineLatest(std::vector<PartialValueObserverPtrFactory<Result>> _vInput)
-    : jrx::core::ReplaySubject<Result>(), m_vCounter(_vInput.size(), 0)
+template<class Result> jrx::factories::CombineLatest<Result>
+::CombineLatest(std::vector<jrx::factories::fragments::PartialValueObserverPtrFactory<Result>> _vInput)
+    : jrx::subjects::ReplaySubject<Result>(), m_vCounter(_vInput.size(), 0)
 {
     for (auto &valueObserverHolder : _vInput) {
         valueObserverHolder.ptr->m_pSharedObject = &m_Object;

@@ -7,7 +7,7 @@
 //
 
 template <class _SenderType>
-auto Observable<_SenderType>::just(_SenderType &&value) -> RetainablePointer<Observable<_SenderType>> {
+auto Observable<_SenderType>::just(_SenderType &&value) -> RetainedPtr<Observable<_SenderType>> {
     /*
     std::shared_ptr<Observable<_SenderType>> observable = std::shared_ptr<Observable<_SenderType>> {
         new Observable<_SenderType>([&] {
@@ -74,7 +74,7 @@ auto Observable<_SenderType>::replay(std::function<void(_SenderType &)> _pFunc) 
 }
 
 template <class _SenderType> auto Observable<_SenderType>
-::combineLatest(std::vector<PartialValueObserverPtrFactory<_SenderType>> input) -> ObservablePtr<_SenderType> {
+::combineLatest(std::vector<jrx::factories::fragments::PartialValueObserverPtrFactory<_SenderType>> input) -> ObservablePtr<_SenderType> {
     
     auto obj = new CombineLatest<_SenderType>(input);
     auto ptr = obj->template getPtr<Observable<_SenderType>>();

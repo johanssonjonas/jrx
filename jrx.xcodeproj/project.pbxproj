@@ -3,15 +3,35 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXFileReference section */
 		6E2AE4A72014B17800EC89AC /* libjrx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjrx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6E4ED69C2D183DD800AFEA94 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				core/retained_object.hpp,
+			);
+			target = 6E2AE4A62014B17800EC89AC /* jrx */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		6E4ED69D2D183DD800AFEA94 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 6E2AE4A32014B17800EC89AC /* Sources */;
+			membershipExceptions = (
+				core/retained_object.hpp,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		6E4B4C892D05C3F800854F02 /* jrx */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = jrx; sourceTree = "<group>"; };
+		6E4B4C892D05C3F800854F02 /* jrx */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6E4ED69C2D183DD800AFEA94 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 6E4ED69D2D183DD800AFEA94 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = jrx; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +111,6 @@
 				};
 			};
 			buildConfigurationList = 6E6ACD9F1F8185B8009B1DE4 /* Build configuration list for PBXProject "jrx" */;
-			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,6 +118,7 @@
 				en,
 			);
 			mainGroup = 6E6ACD9B1F8185B8009B1DE4;
+			preferredProjectObjectVersion = 46;
 			productRefGroup = 6E6ACDA51F8185B8009B1DE4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

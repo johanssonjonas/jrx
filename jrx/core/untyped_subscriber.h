@@ -12,7 +12,7 @@
 
 
 
-class jrx::core::UntypedSubscriber : public jrx::core::RetainableObject {
+class jrx::core::UntypedSubscriber : public jrx::core::RetainedObject {
 public:
     
     template<typename T, typename Y>
@@ -39,7 +39,7 @@ public:
     
 protected:
     
-    std::vector<RetainablePointer<UntypedSubscriber>> m_vChildren;
+    std::vector<RetainedPtr<UntypedSubscriber>> m_vChildren;
     
     auto getRoot() -> UntypedSubscriber *;
     
