@@ -28,7 +28,7 @@ protected:
     
     std::vector<func_t<void(_Ty &)>> m_vSubscribersOnNext;
     std::vector<std::function<void(_Ty)>> m_vOnNextValueObservers;
-    std::vector<std::shared_ptr<TypedSubscriber<_Ty>>> m_vTypedChildren;
+    std::vector<RetainedPtr<TypedSubscriber<_Ty>>> m_vTypedChildren;
 
     bool _bSubscribed = false;
 };

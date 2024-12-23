@@ -19,7 +19,7 @@ public:
 
 	template<class _Ty> using func_t = std::function<_Ty>;
     template<class _Ty> using container_t = std::vector<_Ty>;
-	template<class _Ty> using ptr_t = std::shared_ptr<_Ty>;
+	// template<class _Ty> using ptr_t = std::shared_ptr<_Ty>;
     typedef func_t<void(void)> value_factory_t;
     typedef func_t<_ValueTy(_ValueTy &)> value_retriever_t;
     

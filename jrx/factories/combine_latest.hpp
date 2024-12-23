@@ -10,6 +10,7 @@ template<class Result> jrx::factories::CombineLatest<Result>
 ::CombineLatest(std::vector<jrx::factories::fragments::PartialValueObserverPtrFactory<Result>> _vInput)
     : jrx::subjects::ReplaySubject<Result>(), m_vCounter(_vInput.size(), 0)
 {
+    
     for (auto &valueObserverHolder : _vInput) {
         valueObserverHolder.ptr->m_pSharedObject = &m_Object;
     }
@@ -34,42 +35,6 @@ template<class Result> jrx::factories::CombineLatest<Result>
             counter++;
         }
     });
-    
-    /*
-    for (auto &valueObserverHolder : m_vValueObserverHolders) {
-        valueObserverHolder->onNextValue([this]() {
-            this->onNext(m_Object);
-        });
-        valueObserverHolder->PartialValueHolder<Result>::m_pSharedObject = &m_Object;
-    }
-    
-    for (auto &valueObserverHolder : valueObserverHolders) {
-        valueObserverHolder->observeOnStart([]() {
-            
-        });
-        
-        valueObserverHolder->observeOnSubscribe([this]() {
-            std::cout << "Hmm";
-            this->onNext(m_Object);
-        });
-        
-        valueObserverHolder->observeOnCompleted([]() {
-                    
-        });
-        
-        valueObserverHolder->observeOnError([]() {
-                        
-        });
-        
-        valueObserverHolder->observeOnNextValue([this]() {
-            std::cout << "Hmm";
-            this->onNext(m_Object);
-        });
-        
-        valueObserverHolder->onSubscribe();
-    }*/
-    
-    // Whenever someone subscribes to this observable we want to post the current value using this->onNext
 }
 
 /*

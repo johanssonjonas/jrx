@@ -27,6 +27,12 @@ jrx::factories::fragments
         });
     });
 }
+
+template <class _Ty, class _Ty2>
+jrx::factories::fragments
+::PartialValueObserver<_Ty, _Ty2>::~PartialValueObserver() {
+    std::cout << "OK";
+}
 /*
 template <class _Ty, class _Ty2>
 auto PartialValueObserver<_Ty, _Ty2>::onStart() -> void {

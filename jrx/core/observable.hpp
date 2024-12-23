@@ -14,6 +14,7 @@ template <class _SenderType> auto Observable<_SenderType>
 
 template <class _SenderType> auto Observable<_SenderType>
 ::forEach(std::vector<_SenderType> &&value) -> observable_ptr_t<_SenderType> {
+    // TODO: test this one
     ObservablePtr<Observable<_SenderType>> observable = std::shared_ptr<Observable<_SenderType>> {
         new Observable<_SenderType>([&] {
             for (int i = 0; i < value.size(); i++) {

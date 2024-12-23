@@ -28,7 +28,7 @@ private:
     Result m_Object;
     std::vector<int> m_vCounter;
     int m_iReadyCount;
-    std::vector<std::shared_ptr<jrx::factories::fragments::PartialValueHolder<Result>>> m_vValueObserverHolders;
+    std::vector<RetainedPtr<jrx::factories::fragments::PartialValueHolder<Result>>> m_vValueObserverHolders;
 };
 
 #endif /* jrx_operator_combine_latest_hpp */

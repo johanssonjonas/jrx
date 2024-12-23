@@ -18,6 +18,7 @@ public:
     friend class jrx::factories::CombineLatest<_Ty>;
 
     PartialValueObserver(ObservablePtr<_Ty> obs, _Ty _Ty2::* valueSetter);
+    virtual ~PartialValueObserver();
 
     ObservablePtr<_Ty> observable;
         

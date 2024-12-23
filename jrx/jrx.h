@@ -52,6 +52,11 @@ namespace jrx {
         template <class _SenderType> class Map;
         template <class _SenderType> class Do;
     }
+
+    namespace platforms {
+        auto getMemoryUsage() -> size_t;
+        auto testLeakage(int runCount, std::function<void()> func) -> void;
+    }
 }
 
 using namespace jrx;
@@ -59,6 +64,7 @@ using namespace jrx::core;
 using namespace jrx::operators;
 using namespace jrx::subjects;
 using namespace jrx::factories;
+using namespace jrx::platforms;
 
 #include "core/retained_ptr.h"
 #include "core/retained_object.h"
@@ -85,5 +91,6 @@ using namespace jrx::factories;
 #include "factories/fragments/partial_value_observer_ptr_factory.hpp"
 #include "factories/combine_latest.h"
 #include "factories/combine_latest.hpp"
+
 
 #endif /* jorx_hpp */

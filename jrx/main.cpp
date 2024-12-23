@@ -74,30 +74,6 @@ void smallTest() {
     });
 }
 
-#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
-
-#define canDoMemoryTest 1
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <mach/mach.h>
-
-    // printf("System is POSIX-compliant. POSIX version: %ld\n", _POSIX_VERSION);
-    size_t get_memory_usage() {
-        struct task_basic_info info;
-        mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
-
-        if (task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &infoCount) != KERN_SUCCESS) {
-            return 0; // Failed to retrieve info
-        }
-
-        return info.resident_size; // Memory in bytes
-    }
-#else
-#warning Could not determine memory usage of the test for this system. This should be all fine though!
-#endif
-
 void bigTest(bool print) {
     struct Person {
         int age;
@@ -106,7 +82,7 @@ void bigTest(bool print) {
     
     // Create two observables that will serve the data
     auto observable0 = BehaviorSubject<int>::seeded(5);
-    auto observable2 = Observable<string>::just("David");
+    auto observable1 = Observable<string>::just("David");
     
     // Update the default value
     observable0->onNext(10);
@@ -114,46 +90,62 @@ void bigTest(bool print) {
     // Combining two streams into a new stream that contains the age and name of a person
     auto ptr = Observable<Person>::combineLatest({
         { observable0, &Person::age },
-        { observable2, &Person::name },
-    })
+        { observable1, &Person::name },
+    });
+    /*
+    
     ->filter([](Person value) {
         return value.age > 5.0f;
     })
     ->map<string>([](Person value){
         return value.name + string(value.name.length() > 0,' ') + to_string(value.age);
     })
-    ->subscribe([print](string value) {
+    ->subscribe([print](auto value) {
         if (print) {
-            std::cout << "Got a person '" << value << "'\n";
+            // std::cout << "Got a person '" << value << "'\n";
         }
-    });
+    });*/
+    
+    observable0->named = "Seeded";
+    observable1->named = "Just";
+    ptr->named = "CombineLatest";
     
     observable0->onNext(12);
     
     if (print) {
         std::cout << "---- Program ended\n";
     }
-     
+    
+    std::cout << "Living count: " << RetainedObject::getAliveObjectCount() << "\n";
+    
+    ptr.destroy();
+    observable0.destroy();
+    observable1.destroy();
+    
+    std::cout << "Living count: " << RetainedObject::getAliveObjectCount() << "\n";
+    
 }
 
+
 int main(int argc, const char * argv[]) {
+    /*
+    testLeakage(10, [](){
+        volatile char *test = new char[1000];
+        // put a random number
+        for (int i = 0; i < 1000; i++) {
+            test[i] = i % 255;
+        }
+        std::cout << "test[0]" << test[0] << "\n";
+    });
     
-    smallTest();
-    test();
-    
-#ifdef canDoMemoryTest
-    auto bytesUsed = get_memory_usage();
-#endif
-    
-    for (int i = 0; i < 10000; i++) {
+    testLeakage(1, [](){
+        smallTest();
+        test();
+    });
+    */
+    testLeakage(10000, [](){
         bigTest(false);
-    }
-    
-#ifdef canDoMemoryTest
-    auto diff = get_memory_usage() - bytesUsed;
-    std::cout << "Memory leak: " << diff << " bytes \n";
-#endif
-    
+    });
     
     return 0;
 }

@@ -72,11 +72,15 @@ public:
         }
     }*/
     
-    RetainedPtr<T> &operator=(const T *ptr) {
-        release();
-        m_pPtr = ptr;
-        retain();
-        manuallyDestroyed = false;
+    RetainedPtr<T> &operator=(const RetainedPtr<T> &ptr) {
+        if (this != &ptr) {
+            if (m_pPtr != nullptr) {
+                release();
+            }
+            m_pPtr = ptr.m_pPtr;
+            retain();
+        }
+        return *this;
     }
     
     // Overload the -> operator

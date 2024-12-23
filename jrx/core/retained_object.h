@@ -12,14 +12,6 @@ public:
         
     bool tracked = false;
     
-    virtual ~RetainedObject() {
-        s_iObjectCount--;
-        
-        if (tracked) {
-            std::cout << "objects: " << s_iObjectCount << "\n";
-        }
-    }
-    
     void retain() {
         m_iCounter++;
         
@@ -39,6 +31,9 @@ public:
         
         if (m_iCounter == 0) {
             if (jrx::config::automaticMemoryManagement) {
+                if (named.size() > 0) {
+                    std::cout << "deleting: " << named << "\n";
+                }
                 delete this;
             }
             return true;
@@ -51,11 +46,26 @@ public:
             return RetainedPtr<T>((T *)this);
         }
         
+    static auto getAliveObjectCount() -> int {
+        return s_iObjectCount;
+    }
+        
+    std::string named;
+        
 protected:
     
     RetainedObject() {
         s_iObjectCount++;
     }
+    
+    virtual ~RetainedObject() {
+        s_iObjectCount--;
+        
+        if (tracked) {
+            std::cout << "objects: " << s_iObjectCount << "\n";
+        }
+    }
+    
     
 private:
         

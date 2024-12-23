@@ -10,14 +10,36 @@ template <class Result>
 template <class Combined, class Y> jrx::factories::fragments
 ::PartialValueObserverPtrFactory<Result>::PartialValueObserverPtrFactory(ObservablePtr<Y> _pObservable, Y Combined::* valueSetter) {
     
-    auto obj = new PartialValueObserver<Y, Combined> { _pObservable, valueSetter };
-    this->ptr = obj;
+    this->ptr = (PartialValueHolder<Result> *) new PartialValueObserver<Y, Combined> { _pObservable, valueSetter };
     
-    _pObservable->retain();
+    this->ptr->retain();
+    
+    observable = _pObservable.c_ptr();
+    
+    // _pObservable->retain();
     
     this->untypedSubscriber = _pObservable.c_ptr();
+    this->untypedSubscriber->retain();
     
-    _pObservable->release();
+    // _pObservable->release();
+    /*
+    this->ptr = std::shared_ptr<PartialValueHolder<Combined>> {
+        new PartialValueObserver<Y, Combined> { _pObservable, valueSetter }
+    };
+    this->untypedSubscriber = _pObservable->template getPtr<UntypedSubscriber>(); // .template getPtr<UntypedSubscriber>();
+    */
+}
+
+template <class Result> jrx::factories::fragments
+::PartialValueObserverPtrFactory<Result>::PartialValueObserverPtrFactory(const PartialValueObserverPtrFactory &_Other) {
+    
+    this->ptr = _Other.ptr;
+    this->ptr->retain();
+    
+    this->untypedSubscriber = _Other.untypedSubscriber;
+    this->untypedSubscriber->retain();
+    
+    // _pObservable->release();
     /*
     this->ptr = std::shared_ptr<PartialValueHolder<Combined>> {
         new PartialValueObserver<Y, Combined> { _pObservable, valueSetter }
@@ -28,7 +50,11 @@ template <class Combined, class Y> jrx::factories::fragments
 
 template <class Result> jrx::factories::fragments::PartialValueObserverPtrFactory<Result>
 ::~PartialValueObserverPtrFactory() {
-    // this->ptr->release();
+    // std::cout << "here?";
+    this->untypedSubscriber->release();
+    this->ptr->release();
+    
+    // observable->release();
 }
 
 
