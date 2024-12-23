@@ -14,13 +14,6 @@ template <class _SenderType> auto jrx::subjects::BehaviorSubject<_SenderType>
     auto ptr = obj->template getPtr<Observable<_SenderType>>();
     ptr->onNext(value);
     return ptr;
-    
-    /*
-    Showing Recent Messages
-    No viable conversion from returned value of type
-        'RetainablePointer<jrx::core::BehaviorSubject<int>>' to function return type
-        'RetainablePointer<Observable<BehaviorSubject<int, int>, BehaviorSubject<int, int>>>'
-    */
 }
 
 template <class _SenderType> jrx::subjects::BehaviorSubject<_SenderType>

@@ -6,28 +6,41 @@
 //  Copyright © 2024 Jonas Johansson. All rights reserved.
 //
 
-class jrx::core::RetainedObject {
+class jrx::core
+    ::RetainedObject {
 public:
-    virtual ~RetainedObject() {
-        std::cout << "here";
-    }
-    
-    RetainedObject() {
         
+    bool tracked = false;
+    
+    virtual ~RetainedObject() {
+        s_iObjectCount--;
+        
+        if (tracked) {
+            std::cout << "objects: " << s_iObjectCount << "\n";
+        }
     }
-    
-    
-    int counter = 0;
     
     void retain() {
-        counter++;
+        m_iCounter++;
+        
+        if (tracked) {
+            std::cout << "retain count: " << m_iCounter << "\n";
+        }
     }
     
     bool release() {
-        counter--;
+        m_iCounter--;
         
-        if (counter == 0) {
-            // delete this;
+        if (tracked) {
+            std::cout << "retain count: " << m_iCounter << "\n";
+        }
+        
+        assert(m_iCounter >= 0);
+        
+        if (m_iCounter == 0) {
+            if (jrx::config::automaticMemoryManagement) {
+                delete this;
+            }
             return true;
         }
         return false;
@@ -37,4 +50,17 @@ public:
     auto getPtr() -> RetainedPtr<T> {
             return RetainedPtr<T>((T *)this);
         }
+        
+protected:
+    
+    RetainedObject() {
+        s_iObjectCount++;
+    }
+    
+private:
+        
+    static int s_iObjectCount;
+        
+    int m_iCounter = 0;
+        
 };

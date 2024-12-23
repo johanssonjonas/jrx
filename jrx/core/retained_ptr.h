@@ -33,7 +33,7 @@ public:
     
     // Ensure T inherits from RetainableObject
     // static_assert(std::is_base_of<RetainableObject, T>::value, "T must inherit from RetainableObject");
-
+    
     RetainedPtr() {
         
     }
@@ -41,14 +41,42 @@ public:
     // Make copy constructor
     RetainedPtr(const RetainedPtr<T> &ptr) {
         m_pPtr = ptr.m_pPtr;
+        manuallyDestroyed = false;
+        retain();
     }
     
     explicit RetainedPtr(T *_pPtr) {
         m_pPtr = _pPtr;
+        manuallyDestroyed = false;
+        retain();
     }
     
     ~RetainedPtr() {
-        
+        if (!manuallyDestroyed) {
+            release();
+        }
+    }
+    
+    void destroy() {
+        release();
+        manuallyDestroyed = true;
+        m_pPtr = nullptr;
+    }
+    
+    // = operator
+    /*
+    RetainedPtr<T> &operator=(const RetainedPtr<T> &ptr) {
+        if (this != &ptr) {
+            m_pPtr->release();
+            m_pPtr = ptr.m_pPtr;
+        }
+    }*/
+    
+    RetainedPtr<T> &operator=(const T *ptr) {
+        release();
+        m_pPtr = ptr;
+        retain();
+        manuallyDestroyed = false;
     }
     
     // Overload the -> operator
@@ -60,6 +88,27 @@ public:
         return m_pPtr;
     }
     
+    T *c_ptr() {
+        return m_pPtr;
+    }
+    
 private:
+    
+    bool manuallyDestroyed = false;
+    
+    void retain() {
+        assert(m_pPtr != nullptr);
+        
+        m_pPtr->retain();
+    }
+    
+    void release() {
+        assert(m_pPtr != nullptr);
+        
+        if (m_pPtr->release()) {
+            m_pPtr = nullptr;
+        }
+    }
+    
     T *m_pPtr;
 };

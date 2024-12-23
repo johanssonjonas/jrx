@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 namespace jrx {
     namespace core {
@@ -26,6 +27,10 @@ namespace jrx {
         
         template<class _Ty1> using ObservablePtr = RetainedPtr<Observable<_Ty1>>;
         using ObservableDisposer = RetainedPtr<UntypedSubscriber>;
+    }
+
+    namespace config {
+        static bool automaticMemoryManagement = true;
     }
 
     namespace subjects {

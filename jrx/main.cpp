@@ -11,6 +11,9 @@
 #include <cassert>
 
 
+using namespace std;
+
+
 
 void test() {
     
@@ -71,46 +74,87 @@ void smallTest() {
     });
 }
 
+#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
 
-int main(int argc, const char * argv[]) {
-    
-    smallTest();
-    test();
-    // UntypedSubscrinber = ColdObservable
-    // TypedSubscriber = ColdObservable
-    // ReplayTypedSubscriber = HotObservable // New
-    // PartialValueHolder = ReplayTypedSubscriber
-    
+#define canDoMemoryTest 1
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <mach/mach.h>
+
+    // printf("System is POSIX-compliant. POSIX version: %ld\n", _POSIX_VERSION);
+    size_t get_memory_usage() {
+        struct task_basic_info info;
+        mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
+
+        if (task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &infoCount) != KERN_SUCCESS) {
+            return 0; // Failed to retrieve info
+        }
+
+        return info.resident_size; // Memory in bytes
+    }
+#else
+#warning Could not determine memory usage of the test for this system. This should be all fine though!
+#endif
+
+void bigTest(bool print) {
     struct Person {
         int age;
         std::string name;
     };
-    auto observable0 = BehaviorSubject<int>::seeded(5);
-    auto observable2 = BehaviorSubject<std::string>::seeded("David");
     
-    // observable0->onNext(5);
+    // Create two observables that will serve the data
+    auto observable0 = BehaviorSubject<int>::seeded(5);
+    auto observable2 = Observable<string>::just("David");
+    
+    // Update the default value
     observable0->onNext(10);
     
-    // Combining two streams intoa  new stream that contains the age and name of a person
-    auto test = Observable<Person>::combineLatest({
+    // Combining two streams into a new stream that contains the age and name of a person
+    auto ptr = Observable<Person>::combineLatest({
         { observable0, &Person::age },
         { observable2, &Person::name },
     })
     ->filter([](Person value) {
         return value.age > 5.0f;
     })
-    ->map<std::string>([](Person value){
-        return value.name + std::string(value.name.length() > 0,' ') + std::to_string(value.age);
+    ->map<string>([](Person value){
+        return value.name + string(value.name.length() > 0,' ') + to_string(value.age);
     })
-    ->subscribe([](std::string value) {
-        std::cout << "Got a person '" << value << "'\n";
-        // std::cout << "Got a person '" << value.name << "' and age: " << value.age << "\n";
+    ->subscribe([print](string value) {
+        if (print) {
+            std::cout << "Got a person '" << value << "'\n";
+        }
     });
     
     observable0->onNext(12);
     
-    std::cout << "---- Program ended\n";
+    if (print) {
+        std::cout << "---- Program ended\n";
+    }
      
+}
+
+int main(int argc, const char * argv[]) {
+    
+    smallTest();
+    test();
+    
+#ifdef canDoMemoryTest
+    auto bytesUsed = get_memory_usage();
+#endif
+    
+    for (int i = 0; i < 10000; i++) {
+        bigTest(false);
+    }
+    
+#ifdef canDoMemoryTest
+    auto diff = get_memory_usage() - bytesUsed;
+    std::cout << "Memory leak: " << diff << " bytes \n";
+#endif
+    
+    
     return 0;
 }
 

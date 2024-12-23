@@ -13,6 +13,8 @@ template<class Result> jrx::factories::CombineLatest<Result>
     for (auto &valueObserverHolder : _vInput) {
         valueObserverHolder.ptr->m_pSharedObject = &m_Object;
     }
+        
+    auto copy = _vInput;
     
     this->observeOnSubscribe([this, _vInput]() {
         int counter = 0;

@@ -9,9 +9,9 @@
 #include "jrx.h"
 
 UntypedSubscriber::UntypedSubscriber() :
-m_pParent(nullptr), m_pDisposer(ObservableDisposer {
+m_pParent(nullptr)/*, m_pDisposer(ObservableDisposer {
     this
-}) {
+})*/ {
     
 }
 

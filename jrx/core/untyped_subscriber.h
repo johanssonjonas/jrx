@@ -29,7 +29,7 @@ public:
     virtual auto observeOnError(std::function<void()> func) -> void;
     
     UntypedSubscriber *m_pParent; // TODO: Make this protected
-    ObservableDisposer m_pDisposer;
+    // ObservableDisposer m_pDisposer;
     
     auto onStart() -> void;       // When first value is posted
     auto onSubscribe() -> void;   // When someone starts observing this
