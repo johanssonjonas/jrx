@@ -16,7 +16,7 @@ public:
     virtual auto onNext(_SenderType _tyValue) -> void override;
     virtual auto subscribe(std::function<void(_SenderType)> _pFunc) -> ObservableDisposer override;
     virtual auto observeOnNext(std::function<void()> _pFunc) -> void override;
-        
+    
 private:
     
     _SenderType value;

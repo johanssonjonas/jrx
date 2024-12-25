@@ -27,8 +27,8 @@ template <class _Ty> auto jrx::core::TypedSubscriber<_Ty>
     
     observeOnNextValue(_pFunc);
     
-    if (!_bSubscribed) {
-        _bSubscribed = true;
+    if (!m_bSubscribed) {
+        m_bSubscribed = true;
         UntypedSubscriber::onSubscribe();
     }
     

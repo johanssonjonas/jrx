@@ -91,9 +91,7 @@ void bigTest(bool print) {
     auto ptr = Observable<Person>::combineLatest({
         { observable0, &Person::age },
         { observable1, &Person::name },
-    });
-    /*
-    
+    })
     ->filter([](Person value) {
         return value.age > 5.0f;
     })
@@ -104,48 +102,33 @@ void bigTest(bool print) {
         if (print) {
             // std::cout << "Got a person '" << value << "'\n";
         }
-    });*/
-    
-    observable0->named = "Seeded";
-    observable1->named = "Just";
-    ptr->named = "CombineLatest";
+    });
     
     observable0->onNext(12);
     
     if (print) {
-        std::cout << "---- Program ended\n";
+        
     }
-    
-    std::cout << "Living count: " << RetainedObject::getAliveObjectCount() << "\n";
-    
+    /*
     ptr.destroy();
     observable0.destroy();
     observable1.destroy();
-    
-    std::cout << "Living count: " << RetainedObject::getAliveObjectCount() << "\n";
-    
+    */
 }
 
 
 int main(int argc, const char * argv[]) {
-    /*
-    testLeakage(10, [](){
-        volatile char *test = new char[1000];
-        // put a random number
-        for (int i = 0; i < 1000; i++) {
-            test[i] = i % 255;
-        }
-        std::cout << "test[0]" << test[0] << "\n";
-    });
     
-    testLeakage(1, [](){
-        smallTest();
-        test();
-    });
-    */
+    smallTest();
+    test();
+    
+    std::cout << "---- Running memory leaks test\n";
+    
     testLeakage(10000, [](){
         bigTest(false);
     });
+    
+    std::cout << "---- Program ended\n";
     
     return 0;
 }

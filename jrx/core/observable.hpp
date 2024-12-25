@@ -48,7 +48,7 @@ template <class _SenderType> auto Observable<_SenderType>
     auto obj = new PublishSubject<_SenderType>();
     auto ptr = obj->template getPtr<Observable<_SenderType>>();
     
-    ptr->m_pParent = this;
+    ptr->setParent(this);
     
     this->m_vChildren.push_back(obj->template getPtr<UntypedSubscriber>());
     this->observeOnNextValue([=](auto value) {
@@ -66,7 +66,7 @@ template <class _SenderType> template <class _NewChildType> auto jrx::core::Obse
     auto obj = new PublishSubject<_NewChildType>();
     auto ptr = obj->template getPtr<Observable<_NewChildType>>();
     
-    ptr->m_pParent = this;
+    ptr->setParent(this);
     
     this->m_vChildren.push_back(obj->template getPtr<UntypedSubscriber>());
     this->observeOnNextValue([=](auto value) {

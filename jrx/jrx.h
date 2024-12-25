@@ -67,7 +67,9 @@ using namespace jrx::factories;
 using namespace jrx::platforms;
 
 #include "core/retained_ptr.h"
+#include "core/retained_ptr.hpp"
 #include "core/retained_object.h"
+#include "core/retained_object.hpp"
 #include "core/observable.h"
 #include "core/observable.hpp"
 #include "core/untyped_subscriber.h"

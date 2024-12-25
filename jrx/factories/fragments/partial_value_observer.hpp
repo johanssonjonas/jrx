@@ -6,37 +6,20 @@
 //  Copyright © 2017 Jonas Johansson. All rights reserved.
 //
 
-template <class _Ty, class _Ty2>
-jrx::factories::fragments
-::PartialValueObserver<_Ty, _Ty2>::PartialValueObserver(ObservablePtr<_Ty> obs, _Ty _Ty2::* valueSetter) {
+template <class _Ty, class _Ty2> jrx::factories::fragments::PartialValueObserver<_Ty, _Ty2>
+::PartialValueObserver(ObservablePtr<_Ty> obs, _Ty _Ty2::* valueSetter) {
     m_pValueSetter = valueSetter;
-    observable = obs;
-    /*
-    obs->onNext({
-        this->onNextValue();
-    });*/
-    /*
-    obs->onNextValue([this](){
-        this->onValuePosted();
-    });*/
+    observable = obs; // Retain the object so we hold a reference for the subscribe event
     
     this->observeOnSubscribe([&](){
-        // TODO: FIX (these should be stored so they do not leak memory)
         observable->subscribe([this](_Ty val){
-            jrx::factories::fragments::PartialValueHolder<_Ty2>::m_pSharedObject->*m_pValueSetter = val;
+            jrx::factories::fragments::PartialValueHolder<_Ty2>::getSharedObject()->*m_pValueSetter = val;
         });
     });
 }
 
-template <class _Ty, class _Ty2>
-jrx::factories::fragments
-::PartialValueObserver<_Ty, _Ty2>::~PartialValueObserver() {
-    std::cout << "OK";
+template <class _Ty, class _Ty2> jrx::factories::fragments::PartialValueObserver<_Ty, _Ty2>
+::~PartialValueObserver() {
+    
 }
-/*
-template <class _Ty, class _Ty2>
-auto PartialValueObserver<_Ty, _Ty2>::onStart() -> void {
-    observable->start();
-}*/
-
 

@@ -15,7 +15,11 @@ class jrx::factories::fragments::PartialValueHolder
 public:
 	
     PartialValueHolder();
+        
+    auto setSharedObject(_Ty *_pSharedObject) -> void;
+    auto getSharedObject() -> _Ty *;
     
+private:
     _Ty *m_pSharedObject;
 };
 

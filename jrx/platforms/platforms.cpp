@@ -34,13 +34,15 @@ auto jrx::platforms::getMemoryUsage() -> size_t {
 auto jrx::platforms::testLeakage(int runCount, std::function<void()> func) -> void {
     
     size_t leakingMemoryInBytes = 0;
-    size_t leakingObjectsCount = 0;
     
 #ifdef canDoMemoryTest
     auto bytesUsed = jrx::platforms::getMemoryUsage();
 #endif
     
     for (int i = 0; i < runCount; i++) {
+        if (runCount > 1 && i == 1) {
+            bytesUsed = jrx::platforms::getMemoryUsage();
+        }
         func();
     }
     
@@ -49,7 +51,12 @@ auto jrx::platforms::testLeakage(int runCount, std::function<void()> func) -> vo
 #endif
     // Now print
 #ifdef canDoMemoryTest
-    std::cout << "Memory leak: " << leakingMemoryInBytes << " bytes \n";
+    if (runCount > 1) {
+        std::cout << "Memory leak: " << leakingMemoryInBytes << " bytes \n";
+    }
+    else {
+        std::cout << "Memory leak: " << "<<!requires runCount higer than 1!>>" << " bytes \n";
+    }
 #else
     std::cout << "Memory leak: " << "<<!could not detect!>>" << "\n";
 #endif

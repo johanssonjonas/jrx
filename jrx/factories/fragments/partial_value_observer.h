@@ -13,7 +13,7 @@ template <class _Ty, class _Ty2>
 class jrx::factories::fragments::PartialValueObserver
     : public jrx::factories::fragments::PartialValueHolder<_Ty2> {
 public:
-        
+    
     friend class jrx::core::Observable<_Ty>;
     friend class jrx::factories::CombineLatest<_Ty>;
 
@@ -21,11 +21,9 @@ public:
     virtual ~PartialValueObserver();
 
     ObservablePtr<_Ty> observable;
-        
+    
 private:
     _Ty _Ty2:: *m_pValueSetter;
-        
-    // std::vector<ObservableDisposer> m_vDisposers;
 };
 
 #endif /* jrx_partial_value_observer_hpp */

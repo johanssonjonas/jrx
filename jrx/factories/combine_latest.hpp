@@ -10,11 +10,10 @@ template<class Result> jrx::factories::CombineLatest<Result>
 ::CombineLatest(std::vector<jrx::factories::fragments::PartialValueObserverPtrFactory<Result>> _vInput)
     : jrx::subjects::ReplaySubject<Result>(), m_vCounter(_vInput.size(), 0)
 {
-    
     for (auto &valueObserverHolder : _vInput) {
-        valueObserverHolder.ptr->m_pSharedObject = &m_Object;
+        valueObserverHolder.ptr->setSharedObject(&m_Object);
     }
-        
+    
     auto copy = _vInput;
     
     this->observeOnSubscribe([this, _vInput]() {
@@ -36,32 +35,3 @@ template<class Result> jrx::factories::CombineLatest<Result>
         }
     });
 }
-
-/*
-template<class Result>
-auto jrx::operators::CombineLatest<Result>::subscribe(std::function<void(Result &)> _fpObserver) -> void {
-    
-    for (auto &valueObserverHolder : m_vValueObserverHolders) {
-        valueObserverHolder->PartialValueHolder<Result>::m_pSharedObject = &m_Object;
-        valueObserverHolder->observeOnNextValue([this]() {
-            this->onNext(m_Object);
-        });
-        valueObserverHolder->onSubscribe();
-    }
-    
-    _fpObserver(m_Object);
-}
-
-template<class Result> auto jrx::operators::CombineLatest<Result>
-::onNext(Result _tyValue) -> void {
-    
-}
- 
-
-template<class Result>
-auto jrx::operators::CombineLatest<Result>::replay(std::function<void(Result &)> _pFunc) -> void {
-    _pFunc(m_Object);
-}
- */
-
-
