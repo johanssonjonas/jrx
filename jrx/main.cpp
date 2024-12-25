@@ -14,113 +14,83 @@
 using namespace std;
 
 
-
-void test() {
-    
-    // Test behavior subjects
+void quickStart() {
+    // Create a BehaviorSubject seeded with an initial value
     auto observable1 = BehaviorSubject<int>::seeded(5);
-    bool isSubscribed1 = false;
     int value1 = 0;
-    
-    observable1->observeOnSubscribe([&] {
-        isSubscribed1 = true;
-    });
-    assert(!isSubscribed1);
-    
-    auto tmp = observable1->subscribe([&] (int value) {
+
+    // Subscribe to the observable
+    observable1->subscribe([&](int value) {
         value1 = value;
         std::cout << "Got value: " << value << "\n";
     });
-    assert(value1 == 5);
-    assert(isSubscribed1);
-    
-    // Test published subject
+
+    // BehaviorSubject immediately emits its current value
+    // Output: "Got value: 5"
+
+    // Create a PublishSubject
     auto observable2 = PublishSubject<int>::create();
-    bool isSubscribed2 = false;
     int value2 = 0;
-    
-    observable2->observeOnSubscribe([&] {
-        isSubscribed2 = true;
-    });
-    assert(!isSubscribed2);
-    
-    auto tmp2 = observable2
-    ->map<int>([](int value) {
-        return value * 2;
-    })
-    ->filter([](int value) {
-        return value > 10;
-    })
-    ->subscribe([&] (int value) {
-        value2 = value;
-        std::cout << "Got value: " << value << "\n";
-    });
-    assert(value2 == 0);
-    assert(isSubscribed2);
-    
-    observable2->onNext(5);
-    observable2->onNext(10);
-    assert(value2 == 20);
-    
-    // All done
-    std::cout << "Test passed\n";
-}
 
+    // Map, filter, and subscribe to the observable
+    observable2
+        ->map<int>([](int value) { return value * 2; }) // Multiply by 2
+        ->filter([](int value) { return value > 10; })  // Only allow values > 10
+        ->subscribe([&](int value) {
+            value2 = value;
+            std::cout << "Got value: " << value << "\n";
+        });
 
-void smallTest() {
-    auto observable1 = BehaviorSubject<int>::seeded(5);
-    auto tmp = observable1->subscribe([&] (int value) {
-        std::cout << "Got value: " << value << "\n";
-    });
+    // Emit values
+    observable2->onNext(5);  // Filtered out (10 is not > 10)
+    observable2->onNext(10); // Output: "Got value: 20"
+
 }
 
 void bigTest(bool print) {
+    
     struct Person {
+        string firstName;
+        string lastName;
         int age;
-        std::string name;
     };
     
     // Create two observables that will serve the data
-    auto observable0 = BehaviorSubject<int>::seeded(5);
     auto observable1 = Observable<string>::just("David");
-    
-    // Update the default value
-    observable0->onNext(10);
+    auto observable2 = Observable<string>::just("Smith");
+    auto observable3 = ReplaySubject<int>::create(); // let's say this value is delivered at some other point
     
     // Combining two streams into a new stream that contains the age and name of a person
     auto ptr = Observable<Person>::combineLatest({
-        { observable0, &Person::age },
-        { observable1, &Person::name },
+        { observable1, &Person::firstName },
+        { observable2, &Person::lastName },
+        { observable3, &Person::age },
     })
+    // Ensure we're only receiving signals where the age is above 5
     ->filter([](Person value) {
         return value.age > 5.0f;
     })
+    // Convert the person into a string for display
     ->map<string>([](Person value){
-        return value.name + string(value.name.length() > 0,' ') + to_string(value.age);
+        return value.firstName + value.lastName + string(", ") + to_string(value.age) + string(" years old");
     })
     ->subscribe([print](auto value) {
         if (print) {
-            // std::cout << "Got a person '" << value << "'\n";
+            std::cout << "Got a person '" << value << "'\n";
         }
     });
     
-    observable0->onNext(12);
-    
-    if (print) {
-        
-    }
-    /*
-    ptr.destroy();
-    observable0.destroy();
-    observable1.destroy();
-    */
+    observable3->onNext(12);
+    observable3->onNext(13);
 }
 
 
 int main(int argc, const char * argv[]) {
     
-    smallTest();
-    test();
+    quickStart();
+    // smallTest();
+    // test();
+    bigTest(true);
     
     std::cout << "---- Running memory leaks test\n";
     

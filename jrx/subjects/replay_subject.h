@@ -11,6 +11,8 @@ class jrx::subjects::ReplaySubject
     : public jrx::core::Observable<_SenderType> {
 public:
     
+    static auto create() -> ObservablePtr<_SenderType>;
+        
     ReplaySubject();
     
     virtual auto onNext(_SenderType _tyValue) -> void override;

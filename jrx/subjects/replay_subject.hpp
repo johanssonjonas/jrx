@@ -8,6 +8,13 @@
 
 #include "jrx.h"
 
+template <class _SenderType> auto jrx::subjects::ReplaySubject<_SenderType>
+::create() -> ObservablePtr<_SenderType> {
+    auto obj = new ReplaySubject<_SenderType>();
+    auto ptr = obj->template getPtr<Observable<_SenderType>>();
+    return ptr;
+}
+
 template <class _SenderType> jrx::subjects::ReplaySubject<_SenderType>
 ::ReplaySubject() {
     
