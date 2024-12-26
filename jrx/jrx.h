@@ -49,7 +49,8 @@ namespace jrx {
     }
     
     namespace operators {
-        template <class _SenderType> class Map;
+        template <class _SenderType, class _ParentType> class Map;
+        template <class _SenderType> class Filter;
         template <class _SenderType> class Do;
     }
 

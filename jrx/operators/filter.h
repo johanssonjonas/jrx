@@ -10,11 +10,11 @@
 #define jorx_operator_where_hpp
 
 template <class _Ty>
-class Filter
-    : public jrx::core::Observable<_Ty> {
+class jrx::operators::Filter
+    : public jrx::subjects::ReplaySubject<_Ty> {
 public:
     
-    Filter(std::function<bool(_Ty &)> _pPreducate);
+    Filter(Observable<_Ty> *_pParent, std::function<bool(_Ty &)> _pPreducate);
     
 private:
     

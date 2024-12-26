@@ -9,15 +9,13 @@
 #ifndef jorx_operator_map_hpp
 #define jorx_operator_map_hpp
 
-template <class _SenderType>
+template <class _SenderType, class _ParentType>
 class jrx::operators::Map
-    : public Observable<_SenderType> {
+    : public jrx::subjects::ReplaySubject<_SenderType> {
 public:
     
-    Map(/*std::function<_NewChildType(_SenderType &)> _pPreducate*/);
+    Map(Observable<_ParentType> *_pParent, std::function<_SenderType(_ParentType &)> _pPreducate);
 
-    virtual auto onNext(_SenderType value) -> void override;
-    
 private:
     // std::function<_NewChildType(_SenderType &)> m_pPreducate;
 };
