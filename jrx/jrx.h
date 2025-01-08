@@ -46,6 +46,7 @@ namespace jrx {
             template <class _Ty, class _Ty2> class PartialValueObserver;
         }
         template<class Result> class CombineLatest;
+        template<class Result> class Merge;
     }
     
     namespace operators {
@@ -94,6 +95,7 @@ using namespace jrx::platforms;
 #include "factories/fragments/partial_value_observer_ptr_factory.hpp"
 #include "factories/combine_latest.h"
 #include "factories/combine_latest.hpp"
-
+#include "factories/merge.h"
+#include "factories/merge.hpp"
 
 #endif /* jorx_hpp */

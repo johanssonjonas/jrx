@@ -80,6 +80,29 @@ void bigTest(bool print) {
         }
     });
     
+    // Merge three observables into one (omitting in order):
+    Observable<int>::merge({
+        Observable<int>::just(8),
+        Observable<int>::just(9),
+        Observable<int>::just(13),
+        Observable<int>::just(17)
+    })
+    ->subscribe([&](int value) {
+        observable3->onNext(value);
+    });
+    
+    // Or use the forEach method to send values to the observable
+    Observable<int>::forEach({8,9,13,17})
+    ->subscribe([&](int value) {
+        observable3->onNext(value);
+    });
+    
+    /*
+    Observable<int>::forEach({8,9,13,17})
+    ->subscribe([&](int value) {
+        observable3->onNext(value);
+    });*/
+    
     observable3->onNext(12);
     observable3->onNext(13);
 }
